@@ -175,7 +175,7 @@
                     </div>
                   </li>
                   <li role="separator" class="divider"></li>
-                  <li><a href=""><i class="fa fa-power-off"></i> خروج از حساب</a></li>
+                  <li><a href="{{route('logout')}}"><i class="fa fa-power-off"></i> خروج  </a></li>
                 </ul>
               </div>
             </li>
@@ -235,7 +235,7 @@
                   </span>
                 </a>
                 <ul aria-expanded="false" class="collapse">
-                  <li><a href="#">مشاهده همه  </a></li>
+                  <li><a href="{{route('transactions.index')}}">مشاهده همه  </a></li>
                   <li><a href="{{route('transactions.create')}}">افزودن تراکنش جدید </a></li>
                 </ul>
               </li>

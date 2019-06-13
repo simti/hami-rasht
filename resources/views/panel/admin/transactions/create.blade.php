@@ -85,9 +85,11 @@
                         <div class="form-group">
                           <label class="control-label">مددجو</label>
                           <select id="donees_list" name="donees" class="form-control">
-                            @foreach(App\Donor::first()->donees as $donee)
-                              <option value="{{$donee->id}}" >{{$donee->full_name}}</option>
-                            @endforeach
+                            @if(App\Donor::count()>0)
+                              @foreach(App\Donor::first()->donees as $donee)
+                                <option value="{{$donee->id}}" >{{$donee->full_name}}</option>
+                              @endforeach
+                            @endif
                           </select>
                           @if($errors->has('periods'))
                             <small class="form-control-feedback text-danger">{{$errors->first('periods')}}</small>
@@ -166,7 +168,7 @@
           $("#bank_account_owner").html(response.bank_account_owner)
           $("#money_amount").html(response.pivot.money_amount)
           money = response.pivot.money_amount
-          $("#non_money_amount").html(response.pivot.non_money_detail)
+          $("#non_money_amount").html(response.pivot.non_money_detail=="null"?'-':response.pivot.non_money_detail)
           non_money = response.pivot.non_money_detail
           $("#donation_type").html(response.pivot.donation_type==1?'نقدی':'غیر نقدی')
           donation_type = response.pivot.donation_type
@@ -187,6 +189,21 @@
         }
         $.ajax(settings).done(function (response) {
           console.log(response)
+          if(response=="already existed!"){
+            close_modal();
+            toast_alert("تراکنشی برای این ممدجو و حامی در این دوره ثبت شده است!","true")
+          }else{
+            close_modal();
+            toast_alert("هزینه با موفقیت ثبت شد.","false")
+            setTimeout(function() { location.replace("{{route('transactions.index')}}") }, 2000);
+          }
+          //reset text infos
+          $("#donee_name").html('')
+          $("#bank_account").html('')
+          $("#bank_account_owner").html('')
+          $("#money_amount").html('')
+          $("#non_money_amount").html('')
+          $("#donation_type").html('')
         });
       }
   </script>

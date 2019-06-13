@@ -8,7 +8,7 @@ class Transaction extends Model
 {
 
   protected $table = 'transactions';
-  protected $dateFormat = 'Asia/Tehran';
+  // protected $dateFormat = 'Asia/Tehran';
   protected $guarded = [];
 
   /**

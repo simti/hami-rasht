@@ -5,33 +5,94 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Donor;
+use App\Transaction;
 
 class TransactionsController extends Controller
 {
   public function index()
-  { }
+  {
+    return view('panel.admin.transactions.index');
+  }
+  public function fetch(Request $request)
+  {
+    $transactions = Transaction::whereHas('donor',function($query) use ($request){
+        $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->orWhereHas('donee',function($query) use($request){
+        $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->orWhereHas('donor',function($query) use($request){
+        $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->orWhereHas('donee',function($query) use($request){
+        $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->offset($request->input('page', 0) * 10)
+      ->limit($request->input('limit', 10))
+      ->with(
+        [
+          'donor'=>function($query){
+          $query->select('id','full_name','national_id');
+          },
+          'donee'=>function($query){
+          $query->select('id','full_name','national_id');
+          },
+          'period'=>function($query){
+            $query->select('id','title');
+          },
+        ]
+        )
+      ->get();
+    return $transactions;
+  }
+  public function count(Request $request)
+  {
+    $count = Transaction::whereHas('donors',function($query){
+        $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->whereHas('donees',function($query){
+        $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->whereHas('donor',function($query) use($request){
+        $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->whereHas('donee',function($query) use($request){
+        $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
+      })
+      ->count();
+    return $count;
+  }
   public function create()
   {
     return view('panel.admin.transactions.create');
   }
-
-  public function fetch_related_donees(Request $request){
+  public function edit(Transaction $transaction){
+    return view('panel.admin.transactions.edit',[
+      'transaction' => $transaction
+    ]);
+  }
+  public function fetch_related_donees(Request $request)
+  {
     return Donor::find($request->id)->donees;
   }
-  public function fetch_info(Request $request){
+  public function fetch_info(Request $request)
+  {
     $donor = Donor::find($request->donor_id);
-    return $donor->donees()->where('donee_id',$request->donee_id)->first();
+    return $donor->donees()->where('donee_id', $request->donee_id)->first();
   }
   public function store(Request $request)
   {
+    if (Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first())
+      return 'already existed!';
 
-    $donee = new Donee;
-
-    $donor = Donor::find($request->donors);
-    $donee->donors()->attach($donor);
-
-    return 'Success';
-
+    $transaction = new Transaction;
+    $transaction->donor_id = $request->donor;
+    $transaction->donee_id = $request->donee;
+    $transaction->period_id = $request->period;
+    $transaction->type = $request->type;
+    $transaction->money_amount = $request->money;
+    $transaction->non_money_detail = $request->non_money;
+    $transaction->save();
+    return 'saved';
   }
-
 }

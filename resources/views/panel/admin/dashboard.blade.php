@@ -18,8 +18,8 @@
             <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{currency_to_per(\App\Transaction::Paid()->Today()->sum('foody_amount'))}} ریال</h2>
-            <p class="m-b-0">درآمد امروز</p>
+            <h2>{{currency_to_per(20)}} نفر</h2>
+            <p class="m-b-0">حامی ها</p>
           </div>
         </div>
       </div>
@@ -31,8 +31,8 @@
             <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\Order::Finished()->count())}} عدد</h2>
-            <p class="m-b-0">تعداد فروش امروز</p>
+            <h2>{{eng_to_per(10)}} نفر</h2>
+            <p class="m-b-0">مددجو ها</p>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
             <span><i class="fa fa-home f-s-40 color-warning"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\Kitchen::count())}} عدد</h2>
+            <h2>{{eng_to_per(5)}} عدد</h2>
             <p class="m-b-0">آشپزخانه ها</p>
           </div>
         </div>
@@ -57,7 +57,7 @@
             <span><i class="fa fa-user f-s-40 color-danger"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\User::where('group_code', \App\User::NORMAL)->count())}} نفر</h2>
+            <h2>{{eng_to_per(4)}} نفر</h2>
             <p class="m-b-0">مشتری ها</p>
           </div>
         </div>
@@ -70,7 +70,7 @@
             <span><i class="fa fa-usd f-s-40 color-info"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\Transaction::Recite()->Today()->sum('foody_amount'))}} ریال</h2>
+            <h2>{{eng_to_per(3)}} ریال</h2>
             <p class="m-b-0">درآمد نذری امروز</p>
           </div>
         </div>
@@ -83,7 +83,7 @@
             <span><i class="fa fa-gratipay f-s-40 color-success"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\SubOrder::Recites()->Today()->sum('count'))}} عدد</h2>
+            <h2>{{eng_to_per(2)}} عدد</h2>
             <p class="m-b-0">نذری‌های امروز</p>
           </div>
         </div>
@@ -96,7 +96,7 @@
             <span><i class="fa fa-edit f-s-40 color-primary"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\User::Today()->Normal()->count())}} نفر</h2>
+            <h2>{{eng_to_per(8)}} نفر</h2>
             <p class="m-b-0">ثبت نام‌های امروز</p>
           </div>
         </div>
@@ -109,7 +109,7 @@
             <span><i class="fa fa-handshake-o f-s-40 color-warning"></i></span>
           </div>
           <div class="media-body media-text-right">
-            <h2>{{eng_to_per(\App\User::Today()->Kitchens()->count())}} نفر</h2>
+            <h2>{{eng_to_per(6)}} نفر</h2>
             <p class="m-b-0">درخواست‌های همکاری امروز</p>
           </div>
         </div>

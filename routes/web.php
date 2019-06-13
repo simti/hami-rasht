@@ -13,9 +13,17 @@
 
 Route::get('/', function () {
   return view('welcome');
-});
+})->name('home');
 
-Route::namespace('Panel')->group(function () {
+Route::get('login',function(){
+  return redirect()->route('home');
+})->name('login');
+
+Route::post('login','Panel\AuthController@login')->name('login');
+Route::get('logout','Panel\AuthController@logout')->name('logout');
+
+Route::namespace('Panel')->middleware('auth')->group(function () {
+  Route::get('dashboard','DashboardController@dashboard')->name('dashboard');
   Route::prefix('donees')->name('donees.')->group(function () {
     Route::get('/list', 'DoneesController@index')->name('index');
     Route::get('/create', 'DoneesController@create')->name('create');
@@ -50,10 +58,21 @@ Route::namespace('Panel')->group(function () {
   });
 
   Route::prefix('transactions')->name('transactions.')->group(function () {
-    // Route::get('/list', 'DonorsController@index')->name('index');
+    Route::get('/list', 'TransactionsController@index')->name('index');
+    Route::get('/fetch', 'TransactionsController@fetch')->name('fetch');
     Route::get('/create', 'TransactionsController@create')->name('create');
     Route::get('/store', 'TransactionsController@store')->name('store');
     Route::get('/fetch_related_donees', 'TransactionsController@fetch_related_donees')->name('related_donees');
     Route::get('/fetch_info', 'TransactionsController@fetch_info')->name('fetch_info');
+    Route::get('/show/{transaction?}', 'TransactionsController@show')->name('show');
+    Route::get('/edit/{transaction?}', 'TransactionsController@edit')->name('edit');
+  });
+
+  Route::prefix('reports')->name('reports.')->group(function () {
+    Route::prefix('prints')->name('prints.')->group(function () {
+      Route::get('transactions',"ReportController@print_transactions")->name('transactions');
+      Route::get('recites',"ReportController@print_recites")->name('recites');
+    });
+    Route::get('outputs',"ReportController@bank_outputs")->name('bank_outputs');
   });
 });
