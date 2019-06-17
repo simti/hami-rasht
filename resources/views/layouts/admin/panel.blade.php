@@ -166,10 +166,8 @@
                   <li>
                     <div class="dw-user-box">
                       <div class="u-text">
-                        {{-- <h4>{{Auth::user()->fullname}}</h4> --}}
-                        test
-                        {{-- <p class="text-muted">{{Auth::user()->group_str}} </p>
-                         --}}
+                        <h4>{{Auth::user()->fullname}}</h4>
+                        ادمین سیستم
                       </div>
                     </div>
                   </li>

@@ -122,7 +122,7 @@
                             var settings = {
                                 "async": true,
                                 "crossDomain": true,
-                                "url": "{{route('donees.count')}}?term=" + transactions_term,
+                                "url": "{{route('transactions.count')}}?term=" + transactions_term,
                                 "method": "GET",
                                 "headers": {
                                     "accept": "application/json",

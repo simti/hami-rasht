@@ -346,7 +346,7 @@
                         </div>
                     </div>
                     <div class="form-actions text-left" style="margin-top:80px">
-                        <button type="submit" class="btn btn-success" onclick="submit_form()"> ثبت <i class="fa fa-check"></i> </button>
+                        <button type="submit" class="btn btn-success" onclick="submit_form()"> بروزرسانی اطلاعات <i class="fa fa-check"></i> </button>
                       </div>
                   </div>
                 </div>

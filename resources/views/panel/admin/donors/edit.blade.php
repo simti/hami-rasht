@@ -73,7 +73,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره شناسنامه </label>
-                              <input autocomplete="off" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id',$donor->birth_certificate_id)}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="10" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id',$donor->birth_certificate_id)}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('birth_certificate_id'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('birth_certificate_id')}}</small>
                               @endif
@@ -93,7 +93,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره تلفن  </label>
-                              <input autocomplete="off" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone',$donor->phone)}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="11" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone',$donor->phone)}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('phone'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('phone')}}</small>
                               @endif
@@ -213,8 +213,6 @@
                         </div>
                         <!--/span-->
                       </div>
-                      <!--/row-->
-                      <!--/row-->
                       
                   </div>
               </div>
@@ -288,7 +286,7 @@
                     </div>
                     <div class="form-actions text-left" style="margin-top:80px">
                       <a class="btn btn-warning" href="{{route('donors.index')}}">بازگشت</a> 
-                      <button type="button" class="btn btn-success" onclick="submit_form()">بروزرسانی <i class="fa fa-check"></i> </button>
+                      <button type="button" class="btn btn-success" onclick="submit_form()">بروزرسانی اطلاعات<i class="fa fa-check"></i> </button>
                     </div>
                   </div>
                 </div>

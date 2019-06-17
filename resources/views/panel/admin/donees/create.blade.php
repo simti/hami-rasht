@@ -72,7 +72,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره شناسنامه </label>
-                              <input autocomplete="off" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id')}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="10" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id')}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('birth_certificate_id'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('birth_certificate_id')}}</small>
                               @endif
@@ -82,7 +82,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره تلفن  </label>
-                              <input autocomplete="off" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone')}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="11" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone')}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('phone'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('phone')}}</small>
                               @endif

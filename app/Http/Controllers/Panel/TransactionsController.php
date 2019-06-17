@@ -66,6 +66,14 @@ class TransactionsController extends Controller
   {
     return view('panel.admin.transactions.create');
   }
+  public function update(Request $request, Transaction $transaction)
+  {
+    $transaction->type = $request->type;
+    $transaction->money_amount = $request->type==1?$request->money_amount:0;
+    $transaction->non_money_detail = $request->type==1?'null':$request->non_money_detail;
+    $transaction->save();
+    return redirect()->route('transactions.index');
+  }
   public function edit(Transaction $transaction){
     return view('panel.admin.transactions.edit',[
       'transaction' => $transaction
