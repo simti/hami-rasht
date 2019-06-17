@@ -158,8 +158,7 @@
               <!-- End Messages -->
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="font-size:13px">
-                    {{-- {{Auth::user()->fullname}} --}}
-                    test
+                    {{Auth::user()->full_name}}
                     <span><i class="fa fa-chevron-down"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right animated pulse">
@@ -297,35 +296,6 @@
   <script src="{{asset('admin/js/lib/sweetalert/sweetalert.min.js')}}"></script>
   <script src="{{asset('admin/js/lib/sweetalert/swal-forms.js')}}"></script>
 
-  {{--  <script src="{{asset('admin/js/lib/datamap/d3.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/datamap/topojson.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/datamap/datamaps.world.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/datamap/datamap-init.js')}}"></script>  --}}
-
-  {{--  <script src="{{asset('admin/js/lib/weather/jquery.simpleWeather.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/weather/weather-init.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/owl-carousel/owl.carousel.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/owl-carousel/owl.carousel-init.js')}}"></script>  --}}
-
-  <!-- Amchart -->
-  {{--  <script src="{{asset('admin/js/lib/morris-chart/raphael-min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/morris-chart/morris.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/morris-chart/dashboard1-init.js')}}"></script>  --}}
-
-
-  {{--  <script src="{{asset('admin/js/lib/calendar-2/moment.latest.min.js')}}"></script>  --}}
-  <!-- scripit init-->
-  {{--  <script src="{{asset('admin/js/lib/calendar-2/semantic.ui.min.js')}}"></script>  --}}
-  <!-- scripit init-->
-  {{--  <script src="{{asset('admin/js/lib/calendar-2/prism.min.js')}}"></script>  --}}
-  <!-- scripit init-->
-  {{--  <script src="{{asset('admin/js/lib/calendar-2/pignose.calendar.min.js')}}"></script>  --}}
-  <!-- scripit init-->
-  {{--  <script src="{{asset('admin/js/lib/calendar-2/pignose.init.js')}}"></script>  --}}
-
-  {{--  <script src="{{asset('admin/js/lib/chartist/chartist.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/chartist/chartist-plugin-tooltip.min.js')}}"></script>  --}}
-  {{--  <script src="{{asset('admin/js/lib/chartist/chartist-init.js')}}"></script>  --}}
   <!--Custom JavaScript -->
   <script src="{{asset('admin/js/custom.min.js')}}"></script>
   
@@ -378,40 +348,6 @@
         }
       }
     </script>
-    {{-- custom modal --}}
-    {{-- <div class="sweet-overlay" tabindex="-1" style="opacity: 1.04; display: block;"></div>
-    <div class="sweet-alert showSweetAlert visible" data-custom-class="" data-has-cancel-button="true" data-has-confirm-button="true" data-allow-outside-click="true" data-has-done-function="true" data-animation="pop" data-timer="null" style="display: block; margin-top: -148px;"><div class="sa-icon sa-error" style="display: none;">
-        <span class="sa-x-mark">
-          <span class="sa-line sa-left"></span>
-          <span class="sa-line sa-right"></span>
-        </span>
-      </div><div class="sa-icon sa-warning" style="display: none;">
-        <span class="sa-body"></span>
-        <span class="sa-dot"></span>
-      </div><div class="sa-icon sa-info" style="display: none;"></div><div class="sa-icon sa-success" style="display: none;">
-        <span class="sa-line sa-tip"></span>
-        <span class="sa-line sa-long"></span>
-  
-        <div class="sa-placeholder"></div>
-        <div class="sa-fix"></div>
-      </div><div class="sa-icon sa-custom" style="display: none;"></div><h2>غذای جدید</h2>
-      <p style="display: block;"><div class="swal-form"><input id="title" class=" nice-input swal-form-field" type="text" name="" value="" title="نام غذا" placeholder="نام غذا" data-swal-forms-required=""><label for="title"></label></div></p>
-      <fieldset>
-        <input type="text" tabindex="3" placeholder="">
-        <div class="sa-input-error"></div>
-      </fieldset><div class="sa-error-container">
-        <div class="icon">!</div>
-        <p>Not valid!</p>
-      </div><div class="sa-button-container">
-        <button class="cancel" tabindex="2" style="display: inline-block;">بستن</button>
-        <div class="sa-confirm-button-container">
-          <button class="confirm" tabindex="1" style="display: inline-block; background-color: rgb(92, 74, 199); box-shadow: rgba(92, 74, 199, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px inset;">ثبت</button><div class="la-ball-fall">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      </div></div> --}}
 
     <div id="toast-container" class="toast-bottom-left suc_alert" style="display:none;">
       <div class="toast toast-success" aria-live="polite" style="">

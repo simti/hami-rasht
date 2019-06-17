@@ -14,7 +14,7 @@ class AuthController extends Controller
   {
     // return $request->all();
     if($request->password == "1234"){
-      $user = User::first();
+      $user = User::firstOrFail();
       Auth::login($user);
       return redirect()->route('donees.index');
     }else{
