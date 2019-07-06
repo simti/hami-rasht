@@ -519,20 +519,4 @@
     </div>
     <button class="btn btn-primary modal-submit" onclick="add_donor()">افزودن</button>
   </div>
-
-  {{--  <div id="edit_simti_modal" class="simti_modal visible">
-    <div class="simti_modal_title">
-      <h2 class="modal-title">منو ویرایش</h2>
-    </div>
-    <div class="row">
-      <input autocomplete="off" id="edit_title" class="col-md-10 col-sm-10 col-xs-10 menu_title" style="margin:auto" type="text" placeholder="نام منو">
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-sm-10 col-xs-10 icon_droplist_container" >
-            <span style="font-size: smaller;">انتخاب آیکن :</span>
-            <div id="my-icon-select2"></div>
-        </div>
-    </div>
-    <button class="btn btn-primary modal-submit" onclick="update_menu()">ثبت</button>
-  </div>  --}}
 @endsection
