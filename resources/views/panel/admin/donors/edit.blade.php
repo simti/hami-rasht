@@ -435,12 +435,12 @@
   <div  class="simti_overlay"></div>
   <div id="new_simti_modal" class="simti_modal visible">
     <div class="simti_modal_title">
-      <h2 class="modal-title">منوی جدید</h2>
+      <h2 class="modal-title">مددجوی جدید</h2>
     </div>
     <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label class="control-label">حامی</label>
+            <label class="control-label">مددجو</label>
             <select class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
               @foreach($all_donees as $donee)
                 <option value="{{$donee->id}}" {{ in_array($donee->id, old('donors', []))? 'selected': ''}}>{{$donee->full_name}}</option>

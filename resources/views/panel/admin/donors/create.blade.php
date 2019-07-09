@@ -255,7 +255,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">&nbsp;</label><br>
-                          <button type="button" class="btn btn-primary" onclick="open_modal()">افزودن مددجو</button>
+                          <button type="button" class="btn btn-primary" onclick="open_save_modal()">افزودن مددجو</button>
                         </div>
                       </div>
                     </div>
@@ -268,7 +268,7 @@
                                             <th>مددجو</th>
                                             <th>کمک نقدی</th>
                                             <th>کمک غیرنقدی</th>
-                                            <th>حذف</th>
+                                            <th>عملیات</th>
                                         </tr>
                                     </thead>
                                     <tbody id="donees-content">
@@ -315,15 +315,15 @@
       let donees = []
   </script>
   <script>
-      function open_modal(){
+      function open_save_modal(){
         $('.menu_title').val('')
-        $('.simti_overlay').show();
-        $('#new_simti_modal').show();
+        $('.simti_overlay').fadeIn();
+        $('#new_modal').fadeIn();
         $('body').addClass('stop-scrolling')
       }
       function close_modal(){
-        $('.simti_overlay').hide();
-        $('.simti_modal').hide();
+        $('.simti_overlay').fadeOut();
+        $('.simti_modal').fadeOut();
         $('body').removeClass('stop-scrolling')
       }
       function disable_input(){
@@ -337,6 +337,19 @@
           $("#support_description").removeAttr("disabled")
         }
       }
+
+      function disable_input_edit(){
+        if(Number($("#support_type_edit").val())==1){
+          $("#support_amount_edit").removeAttr("disabled")
+          $("#support_description_edit").val('')
+          $("#support_description_edit").attr("disabled",true)
+        }else{
+          $("#support_amount_edit").attr("disabled",true)
+          $("#support_amount_edit").val(0);
+          $("#support_description_edit").removeAttr("disabled")
+        }
+      }
+
       function remove_donee(index){
         donees.splice(index,1)
         //update table
@@ -364,37 +377,112 @@
 
       function add_donee(){
         let donee = {}
-        //get selected full_name
+        
+        //check for uniqueness
+        if(donees.length>0){
+          if(typeof(donees.find(donee => donee.id == $('#donee').val())) != "object"){
+            //get selected full_name
+            for(let i = 1; i <=all_donees.length;i++){
+              if(all_donees[i-1].id == Number($('#donee').val())){
+                donee.name = all_donees[i-1].full_name;
+              }
+            }
+            //get values
+            donee.id = $('#donee').val()
+            donee.type = $("#support_type").val()
+            donee.money = $("#support_amount").val()
+            donee.non_money = $("#support_description").val()
+    
+            //add to object
+            donees[donees.length] = donee
+    
+            //update table
+            render_donees(donees)
+            $("#support_amount").val('')
+            $("#support_description").val('')
+            close_modal()
+          }else{
+            toast_alert("این مددجو قبلا اضافه شده است","true");
+          }
+        }else{
+          //get selected full_name
+          for(let i = 1; i <=all_donees.length;i++){
+            if(all_donees[i-1].id == Number($('#donee').val())){
+              donee.name = all_donees[i-1].full_name;
+            }
+          }
+          //get values
+          donee.id = $('#donee').val()
+          donee.type = $("#support_type").val()
+          donee.money = $("#support_amount").val()
+          donee.non_money = $("#support_description").val()
+  
+          //add to object
+          donees[donees.length] = donee
+  
+          //update table
+          render_donees(donees);
+          $("#support_amount").val('')
+          $("#support_description").val('')
+          close_modal()
+        }
+      }
 
-        for(let i = 1; i <=all_donees.length;i++){
-          if(all_donees[i-1].id == Number($('.selectpicker').val())){
-            donee.name = all_donees[i-1].full_name;
+      function open_edit_modal(index) {
+        
+        $("#support_amount_edit").removeAttr("disabled");
+        //initiate values
+        $("#support_type_edit").val(donees[index].type)
+        $("#support_amount_edit").val(donees[index].money);
+        $("#support_description_edit").val(donees[index].non_money)
+        $("#donee_edit").val(donees[index].id);
+        $("#donee_edit").selectpicker('render');
+        if(Number(donees[index].type) == 1){
+          $("#support_amount_edit").removeAttr("disabled")
+          $("#support_description_edit").attr("disabled",true)
+        }else{
+          $("#support_amount_edit").attr("disabled",true)
+          $("#support_description_edit").removeAttr("disabled");
+        }
+        
+        
+        $("#donee-update-button").attr("onclick", `update_donee(${index})`)
+            //open box
+        $('.simti_overlay').fadeIn("slow");
+        $('#edit_modal').fadeIn("slow");
+        $('body').addClass('stop-scrolling')
+      }
+
+      function update_donee(index){
+        let found = donees.find(donee => donee.id == $('#donee_edit').val());
+  
+        if(typeof(found) == "undefined"){
+          //get selected full_name
+          for(let i = 1; i <=all_donees.length;i++){
+            if(all_donees[i-1].id == Number($('#donee_edit').val())){
+              donees[index].name = all_donees[i-1].full_name;
+            }
+          }
+          //get values
+          donees[index].id = $('#donee_edit').val()
+          donees[index].type = $("#support_type_edit").val()
+          donees[index].money = $("#support_amount_edit").val()
+          donees[index].non_money = $("#support_description_edit").val()
+
+        }else{
+          if(found.id == donees[index].id){
+            donees[index].type = $("#support_type_edit").val()
+            donees[index].money = $("#support_amount_edit").val()
+            donees[index].non_money = $("#support_description_edit").val()
+          }else{
+            toast_alert("این مددجو قبلا اضافه شده است","true");
           }
         }
-        //get values
-        donee.id = $('.selectpicker').val()
-        donee.type = $("#support_type").val()
-        donee.money = $("#support_amount").val()
-        donee.non_money = $("#support_description").val()
-
-        //add to object
-        donees[donees.length] = donee
 
         //update table
-        let content = '';
-        for(let i =0;i<donees.length;i++){
-          content+=`
-            <tr id="donees-content">
-              <td data-title="مددجو">${donees[i].name}</td>
-              <td data-title="کمک نقدی">${donees[i].money}</td>
-              <td data-title="کمک غیرنقدی">${donees[i].non_money==''?'-': donees[i].non_money}</td>
-              <td data-title="حذف" style="cursor:pointer;color: #5c4ac7;    font-size: larger;" onclick="remove_donee(${i})"><i class="fa fa-trash" aria-hidden="true"></i></td>
-            </tr>
-          `
-        }
-        $("#donees-content").html(content)
-        $("#support_amount").val('')
-        $("#support_description").val('')
+        render_donees(donees)
+        $("#support_amount_edit").val('')
+        $("#support_description_edit").val('')
         close_modal()
       }
 
@@ -415,17 +503,37 @@
 
 
       }
+
+      function render_donees(list){
+        let content = '';
+        for(let i =0;i<list.length;i++){
+          content+=`
+            <tr id="donees-content">
+              <td data-title="مددجو">${list[i].name}</td>
+              <td data-title="کمک نقدی">${list[i].money}</td>
+              <td data-title="کمک غیرنقدی">${list[i].non_money==''?'-': list[i].non_money}</td>
+              <td data-title="عملیات" style="cursor:pointer;color: #5c4ac7;    font-size: larger;">
+                <i class="fa fa-trash" aria-hidden="true" onclick="remove_donee(${i})"></i>
+                &nbsp;&nbsp;
+                <i class="fa fa-edit" aria-hidden="true" onclick="open_edit_modal(${i})" style="    margin-top: 3px;"></i>
+              </td>
+              
+            </tr>
+          `
+        }
+        $("#donees-content").html(content)
+      }
   </script>
   <div  class="simti_overlay"></div>
-  <div id="new_simti_modal" class="simti_modal visible">
+  <div id="new_modal" class="simti_modal visible">
     <div class="simti_modal_title">
-      <h2 class="modal-title">منوی جدید</h2>
+      <h2 class="modal-title">مددجوی جدید</h2>
     </div>
     <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label class="control-label">حامی</label>
-            <select class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
+            <label class="control-label">مددجو</label>
+            <select id="donee" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
               @foreach($donees as $donee)
                 <option value="{{$donee->id}}" {{ in_array($donee->id, old('donors', []))? 'selected': ''}}>{{$donee->full_name}}</option>
               @endforeach
@@ -460,19 +568,47 @@
     <button class="btn btn-primary modal-submit" onclick="add_donee()">افزودن</button>
   </div>
 
-  {{--  <div id="edit_simti_modal" class="simti_modal visible">
+  <div id="edit_modal" class="simti_modal visible">
     <div class="simti_modal_title">
-      <h2 class="modal-title">منو ویرایش</h2>
+      <h2 class="modal-title">ویرایش مددجو</h2>
     </div>
     <div class="row">
-      <input autocomplete="off" id="edit_title" class="col-md-10 col-sm-10 col-xs-10 menu_title" style="margin:auto" type="text" placeholder="نام منو">
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-sm-10 col-xs-10 icon_droplist_container" >
-            <span style="font-size: smaller;">انتخاب آیکن :</span>
-            <div id="my-icon-select2"></div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="control-label">مددجو</label>
+            <select id="donee_edit" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
+              @foreach($donees as $donee)
+                <option value="{{$donee->id}}" {{ in_array($donee->id, old('donors', []))? 'selected': ''}}>{{$donee->full_name}}</option>
+              @endforeach
+            </select>
+            @if($errors->has('donors'))
+              <small class="form-control-feedback text-danger">{{$errors->first('donors')}}</small>
+            @endif
+          </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">نوع حمایت</label>
+                <select id="support_type_edit" class="form-control" onchange="disable_input_edit()">
+                    <option value="1">نقدی</option>
+                    <option value="2">غیر نقدی</option>
+                    <option value="3">خدمات</option>
+                </select>
+              </div>
+        </div> 
+        <div class="col-md-12">
+          <div class="form-group" i >
+            <label class="control-label" > مبلغ (ریال)</label>
+            <input autocomplete="off" type="number" id="support_amount_edit" class="form-control" >
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" >شرح کمک</label>
+            <textarea row="3" id="support_description_edit" class="form-control" style="height:auto !important" disabled></textarea>
+          </div>
         </div>
     </div>
-    <button class="btn btn-primary modal-submit" onclick="update_menu()">ثبت</button>
-  </div>  --}}
+    <button id="donee-update-button" class="btn btn-primary modal-submit" >ویرایش</button>
+  </div>
+
 @endsection
