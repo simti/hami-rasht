@@ -140,7 +140,7 @@
             <!-- Logo icon -->
             <b><img src="{{asset('admin/images/logo.png')}}" alt="homepage" class="dark-logo" style="width:40px;height:40px;" /></b>
             <!-- Logo text -->
-            <span>پنل مدیریت</span>
+            <span style="    color: #d8602a;">اداره بهزیستی رشت</span>
             <!--End Logo icon -->
           </a>
         </div>

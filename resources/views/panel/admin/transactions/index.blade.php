@@ -13,8 +13,14 @@
 @section('content')
 <div class="row">
     <div class="half text-left" style="width:100%">
-      <button type="button" class="btn btn-primary" onclick="open_modal('list')"> چاپ لیست</button>
-      <button type="button" class="btn btn-primary" onclick="open_modal('recite')"> صدور فیش</button>
+      <div class="dropdown simti_test">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">خروجی&nbsp;&nbsp;<span class="caret"></span></button>
+        <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(-124px, 227px, 0px); top: 0px; left: 0px; will-change: transform;" x-out-of-boundaries="">
+          <li><a href="#" onclick="open_modal('list')">چاپ لیست</a></li>
+          <li><a onclick="open_modal('recite')" href="#">صدور فیش</a></li>
+          <li><a onclick="open_modal('bank')" href="#">بانک</a></li>
+        </ul>
+      </div>
   </div>
 </div>
 <div class="row">
@@ -212,10 +218,19 @@
       }
       function print_list(){
         let period_id = $("#select-period").val();
-        if(report_type=="list")
+        if(report_type=="list"){
+          close_modal();
           window.open(`{{route('reports.prints.transactions')}}?period=${period_id}`,'_blank')
-        else
+        }
+        else if(report_type=="recite"){
+          close_modal();
           window.open(`{{route('reports.prints.recites')}}?period=${period_id}`,'_blank')
+        }
+        else{
+          close_modal();
+          window.open(`{{route('reports.bank_output')}}?period=${period_id}`)
+        }
+        
       }
   </script>
   <div  class="simti_overlay"></div>

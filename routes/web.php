@@ -75,6 +75,6 @@ Route::namespace('Panel')->middleware('auth')->group(function () {
       Route::get('transactions',"ReportController@print_transactions")->name('transactions');
       Route::get('recites',"ReportController@print_recites")->name('recites');
     });
-    Route::get('outputs',"ReportController@bank_outputs")->name('bank_outputs');
+    Route::get('bank_output',"ReportController@bank_output")->name('bank_output');
   });
 });

@@ -48,7 +48,10 @@
                             <div class="col-lg-4">
                                 <div class="row">
                                   <div class="col-md-12" style="text-align: center;padding-top: 100px;">
-                                    <img src="{{url('admin/images/logo.png')}}" alt="" style="width:30%;">
+                                    <img src="{{url('admin/images/logo.png')}}" alt="" style="width:30%;padding: 20px;">
+                                  </div>
+                                  <div class="col-md-12 ">
+                                    <h4 class="text-center " style="color: #d8602a;font-size: x-large;padding: 20px;">اداره بهزیستی رشت</h4>
                                   </div>
                                 </div>
                                 <div class="login-content card" style="margin:0">

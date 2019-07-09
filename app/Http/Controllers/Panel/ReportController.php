@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transaction;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class ReportController extends Controller
 {
@@ -36,7 +39,52 @@ class ReportController extends Controller
       ]);
     }
 
-    public function bank_outputs(){
+    public function bank_output(Request $request){
+      if($request->period == 0){
+        $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
+        $transactions_sum = Transaction::where(['type'=>Transaction::CASH])->sum('money_amount');
+      }else{
+        $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
+        $transactions_sum = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->sum('money_amount');
+      }
 
+      
+      if(sizeof($transactions)>0){
+        $file_name = str_random(6)."-".$transactions[0]->period->title;
+
+        // total count
+          $total_count="";
+          for($i=0;$i<(10-strlen((string)sizeof($transactions)));$i++)
+            $total_count.="0";
+          $total_count.=(string)sizeof($transactions);
+        
+        // total money
+          $total_money="";
+          for($i=0;$i<(15-strlen((string)$transactions_sum));$i++)
+            $total_money.="0";
+          $total_money.=(string)$transactions_sum;
+        // $count = sizeof($transactions);
+
+        File::put(storage_path('app/outputs/'.$file_name.".PAY"),$total_count.$total_money."\n");
+
+        foreach($transactions as $tr){
+          //account number
+          $bank_account="";
+          for($i=0;$i<(10-strlen((string)$tr->donee->bank_account_number));$i++)
+            $bank_account.="0";
+          $bank_account.=(string)$tr->donee->bank_account_number;
+          //money amout
+          $amount="";
+          for($i=0;$i<(15-strlen((string)$tr->money_amount));$i++)
+            $amount.="0";
+          $amount.=(string)$tr->money_amount;
+
+          //append to file
+          File::append(storage_path('app/outputs/'.$file_name.".PAY"),$bank_account.$amount."\n");
+        }
+        return Response::download(storage_path("app\outputs\\".$file_name.".PAY"));
+        return back();
+      }
+      
     }
 }
