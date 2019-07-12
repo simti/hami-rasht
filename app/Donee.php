@@ -24,7 +24,6 @@ class Donee extends Model
    */
   const ACTIVE = 1;
   const DEACTIVE = 2;
-  const DELETED = 3;
   
     /**
    * disabled status codes
@@ -49,5 +48,15 @@ class Donee extends Model
   public function transactions()
   {
     return $this->hasMany('App\Transaction');
+  }
+
+  public function scopeActive($query)
+  {
+      return $query->where('status', 1);
+  }
+
+  public function scopeDeactive($query)
+  {
+      return $query->where('status', 2);
   }
 }

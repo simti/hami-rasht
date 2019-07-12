@@ -24,6 +24,7 @@ Route::get('logout','Panel\AuthController@logout')->name('logout');
 
 Route::namespace('Panel')->middleware('auth')->group(function () {
   Route::get('dashboard','DashboardController@dashboard')->name('dashboard');
+  Route::get('users/deactivated','DashboardController@deactivated_users')->name('users.deactivated');
   Route::prefix('donees')->name('donees.')->group(function () {
     Route::get('/list', 'DoneesController@index')->name('index');
     Route::get('/create', 'DoneesController@create')->name('create');
@@ -34,7 +35,11 @@ Route::namespace('Panel')->middleware('auth')->group(function () {
     Route::get('/remove/{donee}', 'DoneesController@remove')->name('remove');
     Route::get('/delete', 'DoneesController@delete')->name('delete');
     Route::get('/fetch', 'DoneesController@fetch')->name('fetch');
+    Route::get('/fetch_deactivate', 'DoneesController@fetch_deactivate')->name('fetch_deactivate');
     Route::get('/count', 'DoneesController@count')->name('count');
+    Route::get('/count_deactivate', 'DoneesController@count_deactivate')->name('count_deactivate');
+    Route::get('/activate/{donee?}', 'DoneesController@activate')->name('activate');
+    Route::get('/deactivate/{donee?}', 'DoneesController@deactivate')->name('deactivate');
   });
 
   Route::prefix('donors')->name('donors.')->group(function () {
@@ -47,7 +52,11 @@ Route::namespace('Panel')->middleware('auth')->group(function () {
     Route::get('/remove/{donor}', 'DonorsController@remove')->name('remove');
     Route::get('/delete', 'DonorsController@delete')->name('delete');
     Route::get('/fetch', 'DonorsController@fetch')->name('fetch');
+    Route::get('/fetch_deactivate', 'DonorsController@fetch_deactivate')->name('fetch_deactivate');
     Route::get('/count', 'DonorsController@count')->name('count');
+    Route::get('/count_deactivate', 'DonorsController@count_deactivate')->name('count_deactivate');
+    Route::get('/activate/{donor?}', 'DonorsController@activate')->name('activate');
+    Route::get('/deactivate/{donor?}', 'DonorsController@deactivate')->name('deactivate');
   });
 
   Route::prefix('periods')->name('periods.')->group(function () {

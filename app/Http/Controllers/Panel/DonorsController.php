@@ -20,6 +20,7 @@ class DonorsController extends Controller
       ->orWhere('national_id', 'LIKE', '%' . $request->input('term', '') . '%')
       ->offset($request->input('page', 0) * 10)
       ->limit($request->input('limit', 10))
+      ->Active()
       ->get();
     return $donors;
   }
@@ -27,6 +28,25 @@ class DonorsController extends Controller
   {
     $count = Donor::where('full_name', 'LIKE', '%' . $request->input('term', '') . '%')
       ->orWhere('national_id', 'LIKE', '%' . $request->input('term', '') . '%')
+      ->Active()
+      ->count();
+    return $count;
+  }
+  public function fetch_deactivate(Request $request)
+  {
+    $donors = Donor::where('full_name', 'LIKE', '%' . $request->input('term', '') . '%')
+      ->orWhere('national_id', 'LIKE', '%' . $request->input('term', '') . '%')
+      ->offset($request->input('page', 0) * 10)
+      ->limit($request->input('limit', 10))
+      ->Deactive()
+      ->get();
+    return $donors;
+  }
+  public function count_deactivate(Request $request)
+  {
+    $count = Donor::where('full_name', 'LIKE', '%' . $request->input('term', '') . '%')
+      ->orWhere('national_id', 'LIKE', '%' . $request->input('term', '') . '%')
+      ->Deactive()
       ->count();
     return $count;
   }
@@ -123,6 +143,19 @@ class DonorsController extends Controller
       $donor->donees()->detach();
     }
 
+    return redirect()->route('donors.index');
+  }
+
+  public function deactivate(Request $request,Donor $donor){
+    $donor->status = Donor::DEACTIVE;
+    $donor->save();
+    $donor->donees()->detach();
+    return redirect()->route('donors.index');
+  }
+
+  public function activate(Donor $donor){
+    $donor->status = Donor::ACTIVE;
+    $donor->save();
     return redirect()->route('donors.index');
   }
 }

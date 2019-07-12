@@ -91,7 +91,7 @@
                                               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">عملیات&nbsp;&nbsp;<span class="caret"></span></button>
                                               <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(120px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                 <li><a href="{{route('donors.edit')}}/${donor.id}">ویرایش</a></li>
-                                                <li><a onclick="return confirm(\'آیا اطمینان دارید؟\') ?remove(${donor.id}):\'\'" href="#">حذف</a></li>
+                                                <li><a onclick="return confirm(\'آیا اطمینان دارید؟\')" href="{{route("donors.deactivate")}}/${donor.id}">غیرفعال کردن</a></li>
                                               </ul>
                                             </div>
                                           </td>

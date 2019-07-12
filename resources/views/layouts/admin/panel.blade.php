@@ -250,6 +250,15 @@
                 </ul>
               </li>
 
+              <li> 
+                <a  href="{{route('users.deactivated')}}">
+                    <i class="fa  fa-user-times" aria-hidden="true"></i>
+                  <span class="hide-menu">کاربران غیرفعال
+                    {{--  <span class="label label-rouded label-primary pull-right">۲</span>  --}}
+                  </span>
+                </a>
+              </li>
+
         </nav>
         <!-- End Sidebar navigation -->
       </div>
