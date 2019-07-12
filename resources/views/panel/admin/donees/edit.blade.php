@@ -337,7 +337,11 @@
                                             <td data-title="مددجو">{{$donor->full_name}}</td>
                                             <td data-title="کمک نقدی">{{$donor->pivot->money_amount}}</td>
                                             <td data-title="کمک غیرنقدی">{{$donor->pivot->non_money_detail=='null'||$donor->pivot->non_money_detail==null||$donor->pivot->non_money_detail==''?'-':$donor->pivot->non_money_detail}}</td>
-                                            <td class="text-center" style="cursor:pointer;color: #5c4ac7;    font-size: larger;"  onclick="remove_donor({{$index}})"><i class="fa fa-trash" aria-hidden="true"></i></td>
+                                            <td  style="cursor:pointer;color: #5c4ac7;    font-size: larger;" >
+                                              <i class="fa fa-trash" aria-hidden="true" onclick="remove_donor({{$index}})"></i>
+                                              &nbsp;&nbsp;
+                                              <i class="fa fa-edit" aria-hidden="true" onclick="open_edit_modal({{$index}})" style="    margin-top: 3px;"></i>
+                                            </td>
                                           </tr>
                                         @endforeach
                                     </tbody>
@@ -396,7 +400,7 @@
       function open_modal(){
         $('.menu_title').val('')
         $('.simti_overlay').show();
-        $('#new_simti_modal').show();
+        $('#new_modal').show();
         $('body').addClass('stop-scrolling')
       }
       function close_modal(){
@@ -415,21 +419,21 @@
           $("#support_description").removeAttr("disabled")
         }
       }
+      function disable_input_edit(){
+        if(Number($("#support_type_edit").val())==1){
+          $("#support_amount_edit").removeAttr("disabled")
+          $("#support_description_edit").val('')
+          $("#support_description_edit").attr("disabled",true)
+        }else{
+          $("#support_amount_edit").attr("disabled",true)
+          $("#support_amount_edit").val(0);
+          $("#support_description_edit").removeAttr("disabled")
+        }
+      }
       function remove_donor(index){
         donors.splice(index,1)
         //update table
-        let content = '';
-        for(let i =0;i<donors.length;i++){
-          content+=`
-            <tr id="donors-content">
-              <td data-title="مددجو">${donors[i].name}</td>
-              <td data-title="کمک نقدی">${donors[i].money}</td>
-              <td data-title="کمک غیرنقدی">${donors[i].non_money==''||donors[i].non_money==null||donors[i].non_money=='null'?'-': donors[i].non_money}</td>
-              <td style="cursor:pointer;color: #5c4ac7;    font-size: larger;"  onclick="remove_donor(${i})"><i class="fa fa-trash" aria-hidden="true"></i></td>
-            </tr>
-          `
-        }
-        $("#donors-content").html(content)
+        render_donors(donors)
       }
 
       //modal close on outside
@@ -439,41 +443,116 @@
         })
       })
       //store donors
-
       function add_donor(){
-        let donor = {}
-        //get selected full_name
-        for(let i = 1; i <=all_donors.length;i++){
-          if(all_donors[i-1].id== Number($('.selectpicker').val())){
-            donor.name = all_donors[i-1].full_name;
+        let donor = {};
+        //check for uniqueness
+        if(donors.length>0){
+          if(typeof(donors.find(donor => donor.id == $('#donor').val())) != "object"){
+            //get selected full_name
+            for(let i = 1; i <=all_donors.length;i++){
+              if(all_donors[i-1].id == Number($('#donor').val())){
+                donor.name = all_donors[i-1].full_name;
+              }
+            }
+            //get values
+            donor.id = $('#donor').val()
+            donor.type = $("#support_type").val()
+            donor.money = $("#support_amount").val()
+            donor.non_money = $("#support_description").val()
+
+            //add to object
+            donors[donors.length] = donor
+
+            //update table
+            render_donors(donors)
+            $("#support_amount").val('')
+            $("#support_description").val('')
+            close_modal()
+          }else{
+            toast_alert("این مددجو قبلا اضافه شده است","true");
+          }
+        }else{
+          //get selected full_name
+          for(let i = 1; i <=all_donors.length;i++){
+            if(all_donors[i-1].id == Number($('#donor').val())){
+              donor.name = all_donors[i-1].full_name;
+            }
+          }
+          //get values
+          donor.id = $('#donor').val()
+          donor.type = $("#support_type").val()
+          donor.money = $("#support_amount").val()
+          donor.non_money = $("#support_description").val()
+
+          //add to object
+          donors[donors.length] = donor
+
+          //update table
+          render_donors(donors);
+          $("#support_amount").val('')
+          $("#support_description").val('')
+          close_modal()
+        }
+      }
+
+      function open_edit_modal(index) {
+        
+        $("#support_amount_edit").removeAttr("disabled");
+        //initiate values
+        $("#support_type_edit").val(donors[index].type)
+        $("#support_amount_edit").val(donors[index].money);
+        $("#support_description_edit").val(donors[index].non_money)
+        $("#donor_edit").val(donors[index].id);
+        $("#donor_edit").selectpicker('render');
+        if(Number(donors[index].type) == 1){
+          $("#support_amount_edit").removeAttr("disabled")
+          $("#support_description_edit").attr("disabled",true)
+        }else{
+          $("#support_amount_edit").attr("disabled",true)
+          $("#support_description_edit").removeAttr("disabled");
+        }
+        
+        
+        $("#donor-update-button").attr("onclick", `update_donor(${index})`)
+            //open box
+        $('.simti_overlay').fadeIn("slow");
+        $('#edit_modal').fadeIn("slow");
+        $('body').addClass('stop-scrolling')
+      }
+
+      function update_donor(index){
+        let found = donors.find(donor => donor.id == $('#donor_edit').val());
+  
+        if(typeof(found) == "undefined"){
+          //get selected full_name
+          for(let i = 1; i <=all_donors.length;i++){
+            if(all_donors[i-1].id == Number($('#donor_edit').val())){
+              donors[index].name = all_donors[i-1].full_name;
+            }
+          }
+          //get values
+          donors[index].id = $('#donor_edit').val()
+          donors[index].type = $("#support_type_edit").val()
+          donors[index].money = $("#support_amount_edit").val()
+          donors[index].non_money = $("#support_description_edit").val()
+
+        }else{
+          if(found.id == donors[index].id){
+            donors[index].type = $("#support_type_edit").val()
+            donors[index].money = $("#support_amount_edit").val()
+            donors[index].non_money = $("#support_description_edit").val()
+          }else{
+            toast_alert("این مددجو قبلا اضافه شده است","true");
           }
         }
-        //get values
-        donor.id = $('.selectpicker').val()
-        donor.type = $("#support_type").val()
-        donor.money = $("#support_amount").val()
-        donor.non_money = $("#support_description").val()
-
-        //add to object
-        donors[donors.length] = donor
 
         //update table
-        let content = '';
-        for(let i =0;i<donors.length;i++){
-          content+=`
-            <tr id="donors-content">
-              <td data-title="مددجو">${donors[i].name}</td>
-              <td data-title="کمک نقدی">${donors[i].money}</td>
-              <td data-title="کمک غیرنقدی">${donors[i].non_money==''||donors[i].non_money==null||donors[i].non_money=='null'?'-': donors[i].non_money}</td>
-              <td data-title="حذف" style="cursor:pointer;color: #5c4ac7;    font-size: larger;" onclick="remove_donor(${i})"><i class="fa fa-trash" aria-hidden="true"></i></td>
-            </tr>
-          `
-        }
-        $("#donors-content").html(content)
-        $("#support_amount").val('')
-        $("#support_description").val('')
+        render_donors(donors)
+        $("#support_amount_edit").val('')
+        $("#support_description_edit").val('')
         close_modal()
       }
+      
 
       function submit_form(){
         let content=``;
@@ -492,9 +571,29 @@
 
 
       }
+
+      function render_donors(list){
+        let content = '';
+        for(let i =0;i<list.length;i++){
+          content+=`
+            <tr id="donors-content">
+              <td data-title="مددجو">${list[i].name}</td>
+              <td data-title="کمک نقدی">${list[i].money}</td>
+              <td data-title="کمک غیرنقدی">${list[i].non_money==''?'-': list[i].non_money}</td>
+              <td data-title="عملیات" style="cursor:pointer;color: #5c4ac7;    font-size: larger;">
+                <i class="fa fa-trash" aria-hidden="true" onclick="remove_donor(${i})"></i>
+                &nbsp;&nbsp;
+                <i class="fa fa-edit" aria-hidden="true" onclick="open_edit_modal(${i})" style="    margin-top: 3px;"></i>
+              </td>
+              
+            </tr>
+          `
+        }
+        $("#donors-content").html(content)
+      }
   </script>
   <div  class="simti_overlay"></div>
-  <div id="new_simti_modal" class="simti_modal visible">
+  <div id="new_modal" class="simti_modal visible">
     <div class="simti_modal_title">
       <h2 class="modal-title">منوی جدید</h2>
     </div>
@@ -502,7 +601,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label class="control-label">حامی</label>
-            <select class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
+            <select id="donor" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
               @foreach($all_donors as $donor)
                 <option value="{{$donor->id}}" {{ in_array($donor->id, old('donors', []))? 'selected': ''}}>{{$donor->full_name}}</option>
               @endforeach
@@ -536,20 +635,47 @@
     </div>
     <button class="btn btn-primary modal-submit" onclick="add_donor()">افزودن</button>
   </div>
-
-  {{--  <div id="edit_simti_modal" class="simti_modal visible">
+  <div id="edit_modal" class="simti_modal visible">
     <div class="simti_modal_title">
-      <h2 class="modal-title">منو ویرایش</h2>
+      <h2 class="modal-title">ویرایش مددجو</h2>
     </div>
     <div class="row">
-      <input autocomplete="off" id="edit_title" class="col-md-10 col-sm-10 col-xs-10 menu_title" style="margin:auto" type="text" placeholder="نام منو">
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-sm-10 col-xs-10 icon_droplist_container" >
-            <span style="font-size: smaller;">انتخاب آیکن :</span>
-            <div id="my-icon-select2"></div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="control-label">مددجو</label>
+            <select id="donor_edit" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
+              @foreach($all_donors as $donor)
+                <option value="{{$donor->id}}" {{ in_array($donor->id, old('donors', []))? 'selected': ''}}>{{$donor->full_name}}</option>
+              @endforeach
+            </select>
+            @if($errors->has('donors'))
+              <small class="form-control-feedback text-danger">{{$errors->first('donors')}}</small>
+            @endif
+          </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">نوع حمایت</label>
+                <select id="support_type_edit" class="form-control" onchange="disable_input_edit()">
+                    <option value="1">نقدی</option>
+                    <option value="2">غیر نقدی</option>
+                    <option value="3">خدمات</option>
+                </select>
+              </div>
+        </div> 
+        <div class="col-md-12">
+          <div class="form-group" i >
+            <label class="control-label" > مبلغ (ریال)</label>
+            <input autocomplete="off" type="number" id="support_amount_edit" class="form-control" >
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" >شرح کمک</label>
+            <textarea row="3" id="support_description_edit" class="form-control" style="height:auto !important" disabled></textarea>
+          </div>
         </div>
     </div>
-    <button class="btn btn-primary modal-submit" onclick="update_menu()">ثبت</button>
-  </div>  --}}
+    <button id="donor-update-button" class="btn btn-primary modal-submit" >ویرایش</button>
+  </div>
+
 @endsection

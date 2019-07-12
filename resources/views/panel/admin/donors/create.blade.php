@@ -353,18 +353,7 @@
       function remove_donee(index){
         donees.splice(index,1)
         //update table
-        let content = '';
-        for(let i =0;i<donees.length;i++){
-          content+=`
-            <tr id="donees-content">
-              <td data-title="مددجو">${donees[i].name}</td>
-              <td data-title="کمک نقدی">${donees[i].money}</td>
-              <td data-title="کمک غیرنقدی">${donees[i].non_money==''?'-': donees[i].non_money}</td>
-              <td style="cursor:pointer;color: #5c4ac7;    font-size: larger;"  onclick="remove_donee(${i})"><i class="fa fa-trash" aria-hidden="true"></i></td>
-            </tr>
-          `
-        }
-        $("#donees-content").html(content)
+        render_donees(donees)
       }
 
       //modal close on outside
@@ -485,7 +474,6 @@
         $("#support_description_edit").val('')
         close_modal()
       }
-
       function submit_form(){
         let content=``;
         for(let i=0;i<donees.length;i++){
@@ -496,12 +484,8 @@
             <input type="hidden" name="donees[${i}][no_money]" value="${donees[i].non_money}">
           `
         }
-
         $("#donor_form").append(content)
-
         $("#donor_form").submit();
-
-
       }
 
       function render_donees(list){

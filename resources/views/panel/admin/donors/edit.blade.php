@@ -374,18 +374,7 @@
       function remove_donee(index){
         donees.splice(index,1)
         //update table
-        let content = '';
-        for(let i =0;i<donees.length;i++){
-          content+=`
-            <tr id="donees-content">
-              <td data-title="مددجو">${donees[i].name}</td>
-              <td data-title="کمک نقدی">${donees[i].money}</td>
-              <td data-title="کمک غیرنقدی">${donees[i].non_money==null||donees[i].non_money==''?'-': donees[i].non_money}</td>
-              <td style="cursor:pointer;color: #5c4ac7;    font-size: larger;" class="text-center"  onclick="remove_donee(${i})"><i class="fa fa-trash" aria-hidden="true"></i></td>
-            </tr>
-          `
-        }
-        $("#donees-content").html(content)
+        render_donees(donees)
       }
 
       //modal close on outside
