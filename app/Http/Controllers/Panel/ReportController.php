@@ -17,7 +17,6 @@ class ReportController extends Controller
       }else{
         $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
       }
-      // return $transactions;
       return view('panel.admin.reports.prints.transactions',[
         'transactions' => $transactions,
         'total' => sizeof($transactions),
