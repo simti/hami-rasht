@@ -139,7 +139,7 @@
                           <div class="col-md-12">
                               <div class="form-group">
                                 <label class="control-label">آدرس</label>
-                                <input autocomplete="off" type="text" id="address" name="address" class="form-control {{$errors->has('address')?'is-invalid':''}}" maxlength="11" value="{{old('address')}}" >
+                                <input autocomplete="off" type="text" id="address" name="address" class="form-control {{$errors->has('address')?'is-invalid':''}}"  value="{{old('address')}}" >
                                 @if($errors->has('address'))
                                   <small class="form-control-feedback text-danger">{{$errors->first('address')}}</small>
                                 @endif

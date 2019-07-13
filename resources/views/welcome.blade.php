@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('admin/images/favicon.png')}}">
-    <title>فودی | Foody</title>
+    <title>حامی رشت | پنل ادمین</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{url('admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">

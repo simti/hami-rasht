@@ -1,11 +1,11 @@
 @extends('layouts.admin.panel')
 @section('page_title')
   <div class="col-md-5 align-self-center">
-      <h3 class="text-primary">مدیریت مددجو ها </h3> </div>
+      <h3 class="text-primary">مدیریت تراکنش  ها </h3> </div>
   <div class="col-md-7 align-self-center">
       <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="javascript:void(0)">خانه</a></li>
-          <li class="breadcrumb-item active">مددجو ها</li>
+          <li class="breadcrumb-item active">تراکنش  ها</li>
       </ol>
   </div>
 @endsection
@@ -29,7 +29,7 @@
         <div class="card-body p-b-0">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs customtab" role="tablist">
-              <li class="nav-item simti_tab_33"> <a class="nav-link active" data-toggle="tab" href="#donees" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i><br>اشپزخانه ها</span> <span class="hidden-xs-down"> لیست مددجو ها </span></a> </li>
+              <li class="nav-item simti_tab_33"> <a class="nav-link active" data-toggle="tab" href="#donees" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i><br>اشپزخانه ها</span> <span class="hidden-xs-down"> لیست تراکنش  ها </span></a> </li>
           </ul>
           <!-- Tab panes -->
           <div class="tab-content">
@@ -39,7 +39,7 @@
                         <div class="col-md-6 text-right" style="margin:5px 0;">
                           <div id="example_filter" class="dataTables_filter">
                             <label>
-                              <input autocomplete="off" type="text" onChange="donee_term_changed(this)" placeholder="جستجوی مددجو..." aria-controls="example">
+                              <input autocomplete="off" type="text" onChange="donee_term_changed(this)" placeholder="جستجوی تراکنش ..." aria-controls="example">
                             </label>
                           </div>
                         </div>
@@ -52,8 +52,8 @@
                                     <th>ردیف</th>
                                     <th class=" text-center">نام حامی</th>
                                     <th class=" text-center">کد ملی حامی</th>
-                                    <th class=" text-center">نام مددجو</th>
-                                    <th class=" text-center">کد ملی مددجو</th>
+                                    <th class=" text-center">نام تراکنش </th>
+                                    <th class=" text-center">کد ملی تراکنش </th>
                                     <th class=" text-center">دوره مالی</th>
                                     <th class=" text-center">کمک هزینه</th>
                                     <th class=" text-center">  عملیات </th>
@@ -102,8 +102,8 @@
                                           <td data-title="ردیف" class=""  scope="row" >${i+1}</th>
                                           <td data-title="نام حامی" class="simti_td_center">${transaction.donor.full_name}</td>
                                           <td data-title="کد ملی حامی" class="simti_td_center">${transaction.donor.national_id}</td>
-                                          <td data-title="نام مددجو" class="simti_td_center">${transaction.donee.full_name}</td>
-                                          <td data-title="کد ملی مددجو" class="simti_td_center">${transaction.donee.national_id}</td>
+                                          <td data-title="نام تراکنش " class="simti_td_center">${transaction.donee.full_name}</td>
+                                          <td data-title="کد ملی تراکنش " class="simti_td_center">${transaction.donee.national_id}</td>
                                           <td data-title="دوره مالی" class="simti_td_center">${transaction.period.title}</td>
                                           <td data-title="کمک هزینه" class="simti_td_center">${transaction.type==1?transaction.money_amount:transaction.non_money_detail}</td>
                                           <td data-title="عملیات" class="td_btn_custom_width">
@@ -187,7 +187,7 @@
                           }
                           $.ajax(settings).done(function (response) {
                             if(response == 'done'){
-                              toast_alert("مددجو حذف شد","false")
+                              toast_alert("تراکنش  حذف شد","false")
                             }
                             load_donee(transactions_page);
                           });

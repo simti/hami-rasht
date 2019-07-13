@@ -370,6 +370,11 @@
       </div>
     </div>
     @yield('custom_modal')
+    @if($errors->any())
+    <script>
+      toast_alert("مددجویی برای حامی ها ثبت نشده است","true")
+    </script>
+  @endif
 </body>
 
 </html>

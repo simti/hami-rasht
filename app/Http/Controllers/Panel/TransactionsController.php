@@ -64,7 +64,11 @@ class TransactionsController extends Controller
   }
   public function create()
   {
-    return view('panel.admin.transactions.create');
+    if(Donor::has('donees')->Active()->count()>0){
+      return view('panel.admin.transactions.create');
+    }else{
+      return back()->withErrors(['transaction', 'ابتدا باید حامی ای ساخته و مددجویی به آن اضافه کنید']);
+    }
   }
   public function update(Request $request, Transaction $transaction)
   {

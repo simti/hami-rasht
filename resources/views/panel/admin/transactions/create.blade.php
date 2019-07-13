@@ -43,7 +43,7 @@
                           <label class="control-label">حامی</label>
                           <script>
                             $(document).ready(function(){
-                              $("select").on("changed.bs.select", 
+                              $("#donors").on("changed.bs.select", 
                                 function(e, clickedIndex, newValue, oldValue) {
                                   let id = this.value;
                                   var settings = {
@@ -58,6 +58,7 @@
                                     "processData": false,
                                   }
                                   $.ajax(settings).done(function (response) {
+                                    console.log(response)
                                     let content = ``;
                                       for(let i =0;i<response.length;i++){
                                         let donee = response[i]
@@ -70,8 +71,8 @@
                                 })
                               });
                           </script>
-                          <select class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
-                            @foreach(App\Donor::has('donees')->get() as $donor)
+                          <select id="donors" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
+                            @foreach(App\Donor::has('donees')->Active()->get() as $donor)
                               <option value="{{$donor->id}}">{{$donor->full_name}}</option>
                             @endforeach
                           </select>
@@ -85,7 +86,7 @@
                         <div class="form-group">
                           <label class="control-label">مددجو</label>
                           <select id="donees_list" name="donees" class="form-control">
-                            @if(App\Donor::count()>0)
+                            @if(App\Donor::Active()->count()>0)
                               @foreach(App\Donor::first()->donees as $donee)
                                 <option value="{{$donee->id}}" >{{$donee->full_name}}</option>
                               @endforeach
