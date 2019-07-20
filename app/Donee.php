@@ -25,11 +25,17 @@ class Donee extends Model
   const ACTIVE = 1;
   const DEACTIVE = 2;
   
-    /**
+  /**
    * disabled status codes
    */
   const DISABLED = 1;
   const NOT_DESABLED = 2;
+
+  /**
+   * output type
+   */
+  const BANK = 1;
+  const NOT_BANK = 2;
 
   
   //Relashionships

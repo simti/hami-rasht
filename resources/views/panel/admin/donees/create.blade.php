@@ -260,7 +260,8 @@
                             <label class="control-label">واحد سازمانی</label>
                             <select name="organization_branch" class="form-control">
                                 <option value="1" {{old('organization_branch', '') == '1'? 'selected': ''}}>توانبخشی</option>
-                                <option value="2" {{old('organization_branch', '') == '2'? 'selected': ''}}>بی سرپرست </option>
+                                <option value="2" {{old('organization_branch', '') == '2'? 'selected': ''}}>اجتماعی </option>
+                                <option value="3" {{old('organization_branch', '') == '3'? 'selected': ''}}>پیشگیری </option>
                             </select>
                             @if($errors->has('organization_branch'))
                               <small class="form-control-feedback text-danger">{{$errors->first('organization_branch')}}</small>
@@ -301,6 +302,21 @@
                           @endif
                         </div>
                       </div>
+                      <div class="col-md-4">
+                        {{--  has-success  --}}
+                        <div class="form-group">
+                          <label class="control-label">نوع خروجی</label>
+                          <select name="output_type" class="form-control">
+                              <option value="1" {{old('output_type', '') == '1'? 'selected': ''}}>بانک</option>
+                              <option value="2" {{old('output_type', '') == '2'? 'selected': ''}}> درون سازمانی</option>
+                          </select>
+                          @if($errors->has('output_type'))
+                            <small class="form-control-feedback text-danger">{{$errors->first('output_type')}}</small>
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
                         <!--/span-->
                       <div class="col-md-8">
                         <div class="form-group">

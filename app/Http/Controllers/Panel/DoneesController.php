@@ -81,6 +81,7 @@ class DoneesController extends Controller
     $donee->number_of_disabled_members_in_family = $request->number_of_disabled_members_in_family;
     $donee->number_of_family_members = $request->number_of_family_members;
     $donee->disabled = $request->disabled;
+    $donee->output_type = $request->output_type;
     $donee->reasons_to_help = $request->reasons_to_help;
     $donee->save();
 
@@ -130,6 +131,7 @@ class DoneesController extends Controller
     $donee->number_of_disabled_members_in_family = $request->number_of_disabled_members_in_family;
     $donee->number_of_family_members = $request->number_of_family_members;
     $donee->disabled = $request->disabled;
+    $donee->output_type = $request->output_type;
     $donee->reasons_to_help = $request->reasons_to_help;
     $donee->save();
 
