@@ -115,4 +115,54 @@ class TransactionsController extends Controller
     $transaction->delete();
     return redirect()->route('transactions.index');
   }
+
+  public function bank_bulk_store(){
+    if(Donor::has('donees')->Active()->count()>0){
+      $donees = Donee::where('output_type',1)->get();
+      // return $donees[1]->donors->where("id",$donees[1]->donors[0]->id)->first()->pivot;
+      foreach($donees as $donee){
+        foreach($donee->donors as $donor){
+          if (!(Transaction::where(["donor_id" => $donor->id, "donee_id" => $donee->id, "period_id" => \App\Period::orderBy('created_at', 'desc')->first()->id])->first())){
+            $transaction = new Transaction;
+            $transaction->donor_id = $donor->id;
+            $transaction->donee_id = $donee->id;
+            $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
+            $transaction->type = ($donee->donors->where("id",$donor->id))->first()->pivot->donation_type ;
+            $transaction->money_amount = ($donee->donors->where("id",$donor->id))->first()->pivot->money_amount;
+            $transaction->non_money_detail = ($donee->donors->where("id",$donor->id))->first()->pivot->non_money_detail;
+            $transaction->output_type = $donee->output_type;
+            $transaction->save();
+          }
+        }
+      }
+      return redirect()->route('transactions.index');
+    }else{
+      return back()->withErrors(['transaction', 'ابتدا باید حامی ای ساخته و مددجویی به آن اضافه کنید']);
+    }
+    
+  }
+
+  public function non_bank_bulk_store(){
+    if(Donor::has('donees')->Active()->count()>0){
+      $donees = Donee::where('output_type',2)->get();
+      foreach($donees as $donee){
+        foreach($donee->donors as $donor){
+          if (!(Transaction::where(["donor_id" => $donor->id, "donee_id" => $donee->id, "period_id" => \App\Period::orderBy('created_at', 'desc')->first()->id])->first())){
+            $transaction = new Transaction;
+            $transaction->donor_id = $donor->id;
+            $transaction->donee_id = $donee->id;
+            $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
+            $transaction->type = ($donee->donors->where("id",$donor->id))->first()->pivot->donation_type ;
+            $transaction->money_amount = ($donee->donors->where("id",$donor->id))->first()->pivot->money_amount;
+            $transaction->non_money_detail = ($donee->donors->where("id",$donor->id))->first()->pivot->non_money_detail;
+            $transaction->output_type = $donee->output_type;
+            $transaction->save();
+          }
+        }
+      }
+      return redirect()->route('transactions.index');
+    }else{
+      return back()->withErrors(['transaction', 'ابتدا باید حامی ای ساخته و مددجویی به آن اضافه کنید']);
+    }
+  }
 }

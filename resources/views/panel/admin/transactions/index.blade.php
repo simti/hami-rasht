@@ -52,8 +52,8 @@
                                     <th>ردیف</th>
                                     <th class=" text-center">نام حامی</th>
                                     <th class=" text-center">کد ملی حامی</th>
-                                    <th class=" text-center">نام تراکنش </th>
-                                    <th class=" text-center">کد ملی تراکنش </th>
+                                    <th class=" text-center">نام مددجو </th>
+                                    <th class=" text-center">کد ملی مددجو </th>
                                     <th class=" text-center">دوره مالی</th>
                                     <th class=" text-center">کمک هزینه</th>
                                     <th class=" text-center">  عملیات </th>
@@ -102,8 +102,8 @@
                                           <td data-title="ردیف" class=""  scope="row" >${i+1}</th>
                                           <td data-title="نام حامی" class="simti_td_center">${transaction.donor.full_name}</td>
                                           <td data-title="کد ملی حامی" class="simti_td_center">${transaction.donor.national_id}</td>
-                                          <td data-title="نام تراکنش " class="simti_td_center">${transaction.donee.full_name}</td>
-                                          <td data-title="کد ملی تراکنش " class="simti_td_center">${transaction.donee.national_id}</td>
+                                          <td data-title="نام مددجو " class="simti_td_center">${transaction.donee.full_name}</td>
+                                          <td data-title="کد ملی مددجو " class="simti_td_center">${transaction.donee.national_id}</td>
                                           <td data-title="دوره مالی" class="simti_td_center">${transaction.period.title}</td>
                                           <td data-title="کمک هزینه" class="simti_td_center">${transaction.type==1?transaction.money_amount:transaction.non_money_detail}</td>
                                           <td data-title="عملیات" class="td_btn_custom_width">

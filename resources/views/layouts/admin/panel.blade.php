@@ -234,6 +234,8 @@
                 <ul aria-expanded="false" class="collapse">
                   <li><a href="{{route('transactions.index')}}">مشاهده همه  </a></li>
                   <li><a href="{{route('transactions.create')}}">افزودن تراکنش جدید </a></li>
+                  <li><a onclick="return confirm('آیا مطمئن هستید؟')" href="{{route('transactions.bank_bulk_store')}}">افزودن دسته ای بانکی </a></li>
+                  <li><a onclick="return confirm('آیا مطمئن هستید؟')" href="{{route('transactions.non_bank_bulk_store')}}">افزودن دسته ای غیر بانکی </a></li>
                 </ul>
               </li>
 

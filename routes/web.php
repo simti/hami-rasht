@@ -71,6 +71,8 @@ Route::namespace('Panel')->middleware('auth')->group(function () {
     Route::get('/fetch', 'TransactionsController@fetch')->name('fetch');
     Route::get('/create', 'TransactionsController@create')->name('create');
     Route::get('/store', 'TransactionsController@store')->name('store');
+    Route::get('/bank_bulk_store', 'TransactionsController@bank_bulk_store')->name('bank_bulk_store');
+    Route::get('/non_bank_bulk_store', 'TransactionsController@non_bank_bulk_store')->name('non_bank_bulk_store');
     Route::get('/fetch_related_donees', 'TransactionsController@fetch_related_donees')->name('related_donees');
     Route::get('/fetch_info', 'TransactionsController@fetch_info')->name('fetch_info');
     Route::get('/show/{transaction?}', 'TransactionsController@show')->name('show');
