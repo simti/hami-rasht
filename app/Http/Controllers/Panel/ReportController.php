@@ -13,22 +13,54 @@ class ReportController extends Controller
 {
     public function print_transactions(Request $request){
       if($request->period == 0){
-        $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
+        if($request->output_type == 0){
+          // die('a');
+          $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
+        }elseif ($request->output_type == Transaction::BANK) {
+          // die('b');
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK])->get();
+        }else{
+          // die('c');
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::NO_BANK])->get();
+        }
       }else{
-        $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
+        if($request->output_type == 0){
+          // die('d');
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
+        }elseif ($request->output_type == Transaction::BANK) {
+          // die('e');
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period,'output_type'=>Transaction::BANK])->get();
+        }else{
+          // die('f');
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period,'output_type'=>Transaction::NO_BANK])->get();
+        }
+        
       }
       return view('panel.admin.reports.prints.transactions',[
         'transactions' => $transactions,
         'total' => sizeof($transactions),
-        'per_page' => 2
+        'per_page' => 16
       ]);
     }
 
     public function print_recites(Request $request){
       if($request->period == 0){
-        $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
+        if($request->output_type == 0){
+          $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
+        }elseif ($request->output_type == Transaction::BANK) {
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK])->get();
+        }else{
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::NO_BANK])->get();
+        }
+
       }else{
-        $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
+        if($request->output_type == 0){
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
+        }elseif ($request->output_type == Transaction::BANK) {
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period,'output_type'=>Transaction::BANK])->get();
+        }else{
+          $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period,'output_type'=>Transaction::NO_BANK])->get();
+        }
       }
       // return $transactions;
       return view('panel.admin.reports.prints.recites',[
@@ -40,11 +72,11 @@ class ReportController extends Controller
 
     public function bank_output(Request $request){
       if($request->period == 0){
-        $transactions = Transaction::where(['type'=>Transaction::CASH])->get();
-        $transactions_sum = Transaction::where(['type'=>Transaction::CASH])->sum('money_amount');
+        $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK])->get();
+        $transactions_sum = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK])->sum('money_amount');
       }else{
-        $transactions = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->get();
-        $transactions_sum = Transaction::where(['type'=>Transaction::CASH,'period_id'=>$request->period])->sum('money_amount');
+        $transactions = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK,'period_id'=>$request->period])->get();
+        $transactions_sum = Transaction::where(['type'=>Transaction::CASH,'output_type'=>Transaction::BANK,'period_id'=>$request->period])->sum('money_amount');
       }
 
       

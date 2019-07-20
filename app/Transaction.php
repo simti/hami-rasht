@@ -19,6 +19,12 @@ class Transaction extends Model
   const SERVICE = 3;
 
   /**
+   * output type
+   */
+  const BANK=1;
+  const NO_BANK=2;
+
+  /**
    * The Donor that the transaction belongs to.
   */
   public function Donor()

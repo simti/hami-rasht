@@ -168,30 +168,6 @@
                           transactions_term = e.value;
                           load_donee(0);
                         }
-
-                        /**
-                          action functions
-                         */
-                        {{--  function remove(donee_id){
-                          var settings = {
-                            "async": true,
-                            "crossDomain": true,
-                            "url": "{{route('admin.donees.remove')}}?id=" + donee_id,
-                            "method": "GET",
-                            "headers": {
-                                "accept": "application/json",
-                                "content-type": "application/json"
-                            },
-                            "processData": false,
-                            "data": ''
-                          }
-                          $.ajax(settings).done(function (response) {
-                            if(response == 'done'){
-                              toast_alert("تراکنش  حذف شد","false")
-                            }
-                            load_donee(transactions_page);
-                          });
-                        }  --}}
                     </script>
                 </div>
             </div>
@@ -218,17 +194,18 @@
       }
       function print_list(){
         let period_id = $("#select-period").val();
+        let output_type = $("#select-output_type").val();
         if(report_type=="list"){
           close_modal();
-          window.open(`{{route('reports.prints.transactions')}}?period=${period_id}`,'_blank')
+          window.open(`{{route('reports.prints.transactions')}}?period=${period_id}&output_type=${output_type}`,'_blank')
         }
         else if(report_type=="recite"){
           close_modal();
-          window.open(`{{route('reports.prints.recites')}}?period=${period_id}`,'_blank')
+          window.open(`{{route('reports.prints.recites')}}?period=${period_id}&output_type=${output_type}`,'_blank')
         }
         else{
           close_modal();
-          window.open(`{{route('reports.bank_output')}}?period=${period_id}`)
+          window.open(`{{route('reports.bank_output')}}?period=${period_id}&output_type=${output_type}`)
         }
         
       }
@@ -236,17 +213,27 @@
   <div  class="simti_overlay"></div>
   <div id="new_simti_modal" class="simti_modal visible">
     <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-              <label class="control-label">انتخاب دوره </label>
-              <select class="form-control" id="select-period">
-                  <option value="0"> همه</option> 
-                @foreach (App\Period::all() as $period)
-                  <option value="{{$period->id}}"> {{$period->title}}</option>    
-                @endforeach
-              </select>
-            </div>
-          </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="control-label">انتخاب دوره </label>
+          <select class="form-control" id="select-period">
+            <option value="0"> همه</option> 
+            @foreach (App\Period::all() as $period)
+              <option value="{{$period->id}}"> {{$period->title}}</option>    
+            @endforeach
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="control-label">برای </label>
+          <select class="form-control" id="select-output_type">
+            <option value="0"> همه</option> 
+            <option value="1"> بانک</option> 
+            <option value="2"> درون سازمانی</option> 
+          </select>
+        </div>
+      </div>
     </div>
     <button class="btn btn-primary modal-submit" onclick="print_list()">تایید</button>
     <button class="btn btn-primary modal-submit" onclick="close_modal()">بازگشت</button>
