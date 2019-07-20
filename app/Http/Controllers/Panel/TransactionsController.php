@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Donor;
+use App\Donee;
 use App\Transaction;
 
 class TransactionsController extends Controller
@@ -75,6 +76,7 @@ class TransactionsController extends Controller
     $transaction->type = $request->type;
     $transaction->money_amount = $request->type==1?$request->money_amount:0;
     $transaction->non_money_detail = $request->type==1?'null':$request->non_money_detail;
+    $transaction->output_type = $request->output_type;
     $transaction->save();
     return redirect()->route('transactions.index');
   }
@@ -104,7 +106,13 @@ class TransactionsController extends Controller
     $transaction->type = $request->type;
     $transaction->money_amount = $request->money;
     $transaction->non_money_detail = $request->non_money;
+    $transaction->output_type = Donee::find($request->donee)->output_type;
     $transaction->save();
     return 'saved';
+  }
+
+  public function delete(Request $request,Transaction $transaction){
+    $transaction->delete();
+    return redirect()->route('transactions.index');
   }
 }

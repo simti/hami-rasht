@@ -45,7 +45,6 @@
                           <input type="text" disabled class="form-control" value="{{$transaction->donor->full_name}}">
                         </div>
                       </div> 
-
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">مددجو</label>
@@ -59,7 +58,7 @@
                           <input type="text" disabled class="form-control" value="{{$transaction->period->title}}">
                         </div>
                       </div>
-                    <div class="col-md-4">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">نوع کمک </label>
                           <select name="type" id="type" class="form-control" onchange="disable_input()">
@@ -69,19 +68,32 @@
                           </select>
                         </div>
                       </div>
-                    <div class="col-md-4">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">هزینه نقدی </label>
                           <input id="support_amount" class="form-control" {{$transaction->type==1?'':'disabled'}} name="money_amount" type="number" value="{{$transaction->type==1?$transaction->money_amount:0}}" >
                         </div>
                       </div>
-                    <div class="col-md-4">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">کمک غیرنقدی </label>
                           <textarea id="support_description" class="form-control" {{$transaction->type>1?'':'disabled'}} name="non_money_detail" style="height:auto !important;">{{$transaction->type>1?$transaction->non_money_detail:''}}</textarea>
                         </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="control-label">نوع خروجی</label>
+                          <select name="output_type" class="form-control">
+                              <option value="1" {{old('output_type', $transaction->output_type) == '1'? 'selected': ''}}>بانک</option>
+                              <option value="2" {{old('output_type', $transaction->output_type) == '2'? 'selected': ''}}> درون سازمانی</option>
+                          </select>
+                          @if($errors->has('output_type'))
+                            <small class="form-control-feedback text-danger">{{$errors->first('output_type')}}</small>
+                          @endif
+                        </div>
+                      </div>
                     </div>
-                    <div class="form-actions text-left" style="margin-top:80px">
+                    <div class="form-actions text-left" style="">
                       <button type="submit" class="btn btn-success"> بروزرسانی اطلاعات <i class="fa fa-check"></i> </button>
                     </div>
                   </div>

@@ -77,6 +77,7 @@ Route::namespace('Panel')->middleware('auth')->group(function () {
     Route::get('/edit/{transaction?}', 'TransactionsController@edit')->name('edit');
     Route::patch('/update/{transaction}', 'TransactionsController@update')->name('update');
     Route::get('/count', 'TransactionsController@count')->name('count');
+    Route::get('/delete/{transaction?}', 'TransactionsController@delete')->name('delete');
   });
 
   Route::prefix('reports')->name('reports.')->group(function () {
