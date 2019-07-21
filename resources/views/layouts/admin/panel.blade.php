@@ -374,9 +374,9 @@
     @yield('custom_modal')
     @if($errors->any())
     <script>
-      toast_alert("مددجویی برای حامی ها ثبت نشده است","true")
+      toast_alert("{{$errors}}","true")
     </script>
-  @endif
+    @endif
 </body>
 
 </html>

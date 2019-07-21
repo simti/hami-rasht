@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Drivers\Time;
 use App\Donee;
 use App\Donor;
+use App\Http\Requests\DoneeRequest;
 
 class DoneesController extends Controller
 {
@@ -56,9 +57,9 @@ class DoneesController extends Controller
       'donors' => Donor::select('id', 'full_name')->get()
     ]);
   }
-  public function store(Request $request)
+  public function store(DoneeRequest $request)
   {
-    // return $request->all();
+    return $request->all();
     $donee = new Donee;
     $donee->file_number = $request->file_number;
     $donee->full_name = $request->full_name;
@@ -154,14 +155,16 @@ class DoneesController extends Controller
     return redirect()->route('donees.index');
   }
 
-  public function deactivate(Request $request,Donee $donee){
+  public function deactivate(Request $request, Donee $donee)
+  {
     $donee->status = Donee::DEACTIVE;
     $donee->save();
     $donee->donors()->detach();
     return redirect()->route('donees.index');
   }
 
-  public function activate(Donee $donee){
+  public function activate(Donee $donee)
+  {
     $donee->status = Donee::ACTIVE;
     $donee->save();
     return redirect()->route('donees.index');

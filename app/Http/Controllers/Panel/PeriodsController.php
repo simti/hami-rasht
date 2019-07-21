@@ -17,7 +17,7 @@ class PeriodsController extends Controller
   public function fetch(Request $request)
   {
     $period = Period::where('title', 'LIKE', '%' . $request->input('term', '') . '%')
-      ->orderBy('created_at','asc')
+      ->orderBy('created_at', 'asc')
       ->offset($request->input('page', 0) * 10)
       ->limit($request->input('limit', 10))
       ->get();

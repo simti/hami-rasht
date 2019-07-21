@@ -58,6 +58,7 @@ class DonorsController extends Controller
   }
   public function store(Request $request)
   {
+    return $request->all();
     // store donor
     $donor = new Donor;
     $donor->full_name = $request->full_name;
@@ -146,14 +147,16 @@ class DonorsController extends Controller
     return redirect()->route('donors.index');
   }
 
-  public function deactivate(Request $request,Donor $donor){
+  public function deactivate(Request $request, Donor $donor)
+  {
     $donor->status = Donor::DEACTIVE;
     $donor->save();
     $donor->donees()->detach();
     return redirect()->route('donors.index');
   }
 
-  public function activate(Donor $donor){
+  public function activate(Donor $donor)
+  {
     $donor->status = Donor::ACTIVE;
     $donor->save();
     return redirect()->route('donors.index');

@@ -13,7 +13,8 @@ class DashboardController extends Controller
     return 'dashboard';
   }
 
-  public function deactivated_users(){
+  public function deactivated_users()
+  {
     return view('panel.admin.deactivated');
   }
 }
