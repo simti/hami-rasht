@@ -57,7 +57,7 @@ class DoneesController extends Controller
       'donors' => Donor::select('id', 'full_name')->get()
     ]);
   }
-  public function store(DoneeRequest $request)
+  public function store(Request $request)
   {
     return $request->all();
     $donee = new Donee;
