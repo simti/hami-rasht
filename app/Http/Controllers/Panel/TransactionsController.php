@@ -48,10 +48,10 @@ class TransactionsController extends Controller
   }
   public function count(Request $request)
   {
-    $count = Transaction::whereHas('donors', function ($query) {
+    $count = Transaction::whereHas('donor', function ($query) use ($request) {
       $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
     })
-      ->whereHas('donees', function ($query) {
+      ->whereHas('donee', function ($query) use ($request) {
         $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
       })
       ->whereHas('donor', function ($query) use ($request) {
