@@ -131,12 +131,53 @@
               <div class="type">لیست هزینه</div>
               <div class="year">
                 <span>سال: </span>
-                <span>1398</span>
+                <span>{{$year}}</span>
                 
               </div>
               <div class="month">
                 <span>ماه: </span>
-                <span>اسفند</span>
+                <span>
+                  @switch($month)
+                    @case("همه")
+                      همه
+                      @break
+                    @case("1")
+                      فروردین
+                      @break
+                    @case("2")
+                      اردیبهشت
+                      @break
+                    @case("3")
+                      خرداد
+                      @break
+                    @case("4")
+                      تیر
+                      @break
+                    @case("5")
+                      مرداد
+                      @break
+                    @case("6")
+                      شهریور
+                      @break
+                    @case("7")
+                      مهر
+                      @break
+                    @case("8")
+                      آبان
+                      @break
+                    @case("9")
+                      آذر
+                      @break
+                    @case("10")
+                      دی
+                      @break
+                    @case("11")
+                      بهمن
+                      @break
+                    @default
+                      اسفند 
+                    @endswitch
+                </span>
               </div>
               <div class="bank">
                 <span>بانک: </span>
@@ -187,6 +228,9 @@
     </page> 
     @endfor
   @else
+    @php
+     $index =0;   
+    @endphp
     <page size="A4" layout="landscape">
       <div class="header">
           <div class="title">اداره بهزیستی شهرستان رشت</div>
@@ -194,12 +238,54 @@
             <div class="type">لیست هزینه</div>
             <div class="year">
               <span>سال: </span>
-              <span>1398</span>
+              <span>{{$year}}</span>
               
             </div>
             <div class="month">
               <span>ماه: </span>
-              <span>اسفند</span>
+              <span>
+                   @switch($month)
+                   @case("همه")
+                      همه
+                      @break
+                    @case("1")
+                      فروردین
+                      @break
+                    @case("2")
+                      اردیبهشت
+                      @break
+                    @case("3")
+                      خرداد
+                      @break
+                    @case("4")
+                      تیر
+                      @break
+                    @case("5")
+                      مرداد
+                      @break
+                    @case("6")
+                      شهریور
+                      @break
+                    @case("7")
+                      مهر
+                      @break
+                    @case("8")
+                      آبان
+                      @break
+                    @case("9")
+                      آذر
+                      @break
+                    @case("10")
+                      دی
+                      @break
+                    @case("11")
+                      بهمن
+                      @break
+                    @default
+                      اسفند
+                        
+                  @endswitch
+              </span>
             </div>
             <div class="bank">
               <span>بانک: </span>
@@ -229,7 +315,7 @@
           </tr>
           @for ($j= 0; $j < $total; $j++)
             <tr>
-              <td>1</td>
+              <td>{{($index+1)}}</td>
               <td>{{$transactions[$j]->donor->full_name}}</td>
               <td>{{$transactions[$j]->donee->full_name}}</td>
               <td>{{$transactions[$j]->donee->bank_account_number}}</td>
@@ -237,6 +323,9 @@
               <td>{{$transactions[$j]->donee->reasons_to_help}}</td>
               <td>{{$transactions[$j]->money_amount}}</td>
             </tr>
+            @php
+              $index++;
+            @endphp
             @endfor  
         </table>
       </div>

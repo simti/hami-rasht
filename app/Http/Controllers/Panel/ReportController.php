@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transaction;
+use App\Period;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -14,6 +15,8 @@ class ReportController extends Controller
   public function print_transactions(Request $request)
   {
     if ($request->period == 0) {
+      $year = "همه";
+      $month = "همه";
       if ($request->output_type == 0) {
         $transactions = Transaction::where(['type' => Transaction::CASH])->get();
       } elseif ($request->output_type == Transaction::BANK) {
@@ -22,6 +25,8 @@ class ReportController extends Controller
         $transactions = Transaction::where(['type' => Transaction::CASH, 'output_type' => Transaction::NO_BANK])->get();
       }
     } else {
+      $year = explode("-",Period::findOrFail($request->period)->title)[0];
+      $month = explode("-",Period::findOrFail($request->period)->title)[1];
       if ($request->output_type == 0) {
         $transactions = Transaction::where(['type' => Transaction::CASH, 'period_id' => $request->period])->get();
       } elseif ($request->output_type == Transaction::BANK) {
@@ -30,10 +35,14 @@ class ReportController extends Controller
         $transactions = Transaction::where(['type' => Transaction::CASH, 'period_id' => $request->period, 'output_type' => Transaction::NO_BANK])->get();
       }
     }
+
     return view('panel.admin.reports.prints.transactions', [
       'transactions' => $transactions,
       'total' => sizeof($transactions),
-      'per_page' => 16
+      'per_page' => 16,
+      'year' => $year,
+      'month'=>$month
+      
     ]);
   }
 

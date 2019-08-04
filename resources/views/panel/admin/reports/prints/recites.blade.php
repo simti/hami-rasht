@@ -185,11 +185,50 @@
                         <div class="left">
                           <div class="year">
                             <span>سال: </span>
-                            <span>1398</span>
+                            <span>{{explode("-",$transactions[$index]->period->title)[0]}}</span>
                           </div>
                           <div class="month">
                             <span>ماه: </span>
-                            <span>اسفند</span>
+                            <span>
+                              @switch(explode("-",$transaction->period->title)[1])
+                                @case("1")
+                                  "فروردین"
+                                  @break
+                                @case("2")
+                                  "اردیبهشت"
+                                  @break
+                                @case("3")
+                                  "خرداد"
+                                  @break
+                                @case("4")
+                                  "تیر"
+                                  @break
+                                @case("5")
+                                  "مرداد"
+                                  @break
+                                @case("6")
+                                  "شهریور"
+                                  @break
+                                @case("7")
+                                  "مهر"
+                                  @break
+                                @case("8")
+                                  "آبان"
+                                  @break
+                                @case("9")
+                                  "آذر"
+                                  @break
+                                @case("10")
+                                  "دی"
+                                  @break
+                                @case("11")
+                                  "بهمن"
+                                  @break
+                                @default
+                                  "اسفند"
+                                    
+                              @endswitch
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -263,11 +302,50 @@
                 <div class="left">
                   <div class="year">
                     <span>سال: </span>
-                    <span>1398</span>
+                    <span>{{explode("-",$transaction->period->title)[0]}}</span>
                   </div>
                   <div class="month">
                     <span>ماه: </span>
-                    <span>اسفند</span>
+                    <span>
+                      @switch(explode("-",$transaction->period->title)[1])
+                        @case("1")
+                          فروردین
+                          @break
+                        @case("2")
+                          اردیبهشت
+                          @break
+                        @case("3")
+                          خرداد
+                          @break
+                        @case("4")
+                          تیر
+                          @break
+                        @case("5")
+                          مرداد
+                          @break
+                        @case("6")
+                          شهریور
+                          @break
+                        @case("7")
+                          مهر
+                          @break
+                        @case("8")
+                          آبان
+                          @break
+                        @case("9")
+                          آذر
+                          @break
+                        @case("10")
+                          دی
+                          @break
+                        @case("11")
+                          بهمن
+                          @break
+                        @default
+                          اسفند
+                            
+                      @endswitch
+                    </span>
                   </div>
                 </div>
               </div>
