@@ -52,7 +52,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">نام پدر   </label>
-                                <input autocomplete="off" type="text" id="father_name" name="father_name" value="{{old('father_name','test')}}" class="form-control {{$errors->has('father_name')?'is-invalid':''}}">
+                                <input autocomplete="off" type="text" id="father_name" name="father_name" value="{{old('father_name','')}}" class="form-control {{$errors->has('father_name')?'is-invalid':''}}">
                                 @if($errors->has('father_name'))
                                   <small class="form-control-feedback text-danger">{{$errors->first('father_name')}}</small>
                                 @endif
@@ -62,7 +62,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">کدملی </label>
-                              <input autocomplete="off" maxlength="10" type="text" id="national_id" name="national_id" value="{{old('national_id','1234567876')}}" class="form-control {{$errors->has('national_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="10" type="text" id="national_id" name="national_id" value="{{old('national_id','')}}" class="form-control {{$errors->has('national_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('national_id'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('national_id')}}</small>
                               @endif
@@ -72,7 +72,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره شناسنامه </label>
-                              <input autocomplete="off" maxlength="10" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id','3')}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="10" type="text" id="birth_certificate_id" name="birth_certificate_id" value="{{old('birth_certificate_id','')}}" class="form-control {{$errors->has('birth_certificate_id')?'is-invalid':''}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('birth_certificate_id'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('birth_certificate_id')}}</small>
                               @endif
@@ -82,7 +82,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره تلفن  </label>
-                              <input autocomplete="off" maxlength="11" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone','33333333')}}" onkeyup="onlyNumber(this)" >
+                              <input autocomplete="off" maxlength="11" type="text" id="phone" name="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{old('phone','')}}" onkeyup="onlyNumber(this)" >
                               @if($errors->has('phone'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('phone')}}</small>
                               @endif
@@ -92,7 +92,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">شماره همراه </label>
-                              <input autocomplete="off" type="text" id="mobile" name="mobile" class="form-control {{$errors->has('mobile')?'is-invalid':''}}" maxlength="11" value="{{old('mobile','09112344566')}}" onkeyup="onlyNumber(this)">
+                              <input autocomplete="off" type="text" id="mobile" name="mobile" class="form-control {{$errors->has('mobile')?'is-invalid':''}}" maxlength="11" value="{{old('mobile','')}}" onkeyup="onlyNumber(this)">
                               @if($errors->has('mobile'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('mobile')}}</small>
                               @endif
@@ -117,7 +117,7 @@
                           <div class="col-md-4">
                             <div class="form-group">
                               <label class="control-label">میزان تحصیلات  </label>
-                              <input autocomplete="off" type="text" id="education" name="education" value="{{old('education','test')}}" class="form-control {{$errors->has('education')?'is-invalid':''}}" >
+                              <input autocomplete="off" type="text" id="education" name="education" value="{{old('education','')}}" class="form-control {{$errors->has('education')?'is-invalid':''}}" >
                               @if($errors->has('education'))
                                 <small class="form-control-feedback text-danger">{{$errors->first('education')}}</small>
                               @endif
@@ -127,7 +127,7 @@
                           <div class="col-md-4">
                               <div class="form-group">
                                 <label class="control-label">تاریخ  تولد </label>
-                                <input autocomplete="off" type="text" autocomplete="off" id="birth_date" value="{{old('birth_date', '1398-04-23')}}"  name="birth_date" class="form-control datepicker" >
+                                <input autocomplete="off" type="text" autocomplete="off" id="birth_date" value="{{old('birth_date', '')}}"  name="birth_date" class="form-control datepicker" >
                                 @if($errors->has('birth_date'))
                                   <small class="form-control-feedback text-danger">{{$errors->first('birth_date')}}</small>
                                 @endif
@@ -139,7 +139,7 @@
                           <div class="col-md-12">
                               <div class="form-group">
                                 <label class="control-label">آدرس</label>
-                                <input autocomplete="off" type="text" id="address" name="address" class="form-control {{$errors->has('address')?'is-invalid':''}}"  value="{{old('address','test')}}" >
+                                <input autocomplete="off" type="text" id="address" name="address" class="form-control {{$errors->has('address')?'is-invalid':''}}"  value="{{old('address','')}}" >
                                 @if($errors->has('address'))
                                   <small class="form-control-feedback text-danger">{{$errors->first('address')}}</small>
                                 @endif
@@ -173,7 +173,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شماره حساب</label>
-                          <input autocomplete="off" type="text" id="bank_account_number" name="bank_account_number" value="{{old('bank_account_number', '1234567898')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="text" id="bank_account_number" name="bank_account_number" value="{{old('bank_account_number', '')}}" class="form-control" onkeyup="onlyNumber(this)">
                           @if($errors->has('bank_account_number'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_account_number')}}</small>
                           @endif
@@ -183,7 +183,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شماره کارت</label>
-                          <input autocomplete="off" maxlength="16" type="text" id="bank_card_number" name="bank_card_number" value="{{old('bank_card_number', '3456654323456789')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" maxlength="16" type="text" id="bank_card_number" name="bank_card_number" value="{{old('bank_card_number', '')}}" class="form-control" onkeyup="onlyNumber(this)">
                           @if($errors->has('bank_card_number'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_card_number')}}</small>
                           @endif
@@ -193,7 +193,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">صاحب حساب</label>
-                          <input autocomplete="off" type="text" id="bank_account_owner" name="bank_account_owner" value="{{old('bank_account_owner', 'test')}}" class="form-control" >
+                          <input autocomplete="off" type="text" id="bank_account_owner" name="bank_account_owner" value="{{old('bank_account_owner', '')}}" class="form-control" >
                           @if($errors->has('bank_account_owner'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_account_owner')}}</small>
                           @endif
@@ -203,7 +203,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">نام بانک</label>
-                          <input autocomplete="off" type="text" id="bank_name" name="bank_name" value="{{old('bank_name', 'test')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="bank_name" name="bank_name" value="{{old('bank_name', '')}}" class="form-control">
                           @if($errors->has('bank_name'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_name')}}</small>
                           @endif
@@ -213,7 +213,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شعبه</label>
-                          <input autocomplete="off" type="text" id="bank_branch_name" name="bank_branch_name" value="{{old('bank_branch_name', 'test')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="bank_branch_name" name="bank_branch_name" value="{{old('bank_branch_name', '')}}" class="form-control">
                           @if($errors->has('bank_branch_name'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_branch_name')}}</small>
                           @endif
@@ -238,7 +238,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">شماره پرونده </label>
-                            <input autocomplete="off" type="text" id="file_number" name="file_number" value="{{old('file_number','ssss')}}"  class="form-control {{$errors->has('file_number')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
+                            <input autocomplete="off" type="text" id="file_number" name="file_number" value="{{old('file_number','')}}"  class="form-control {{$errors->has('file_number')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
                             @if($errors->has('file_number'))
                               <small class="form-control-feedback text-danger">{{$errors->first('file_number')}}</small>
                             @endif
@@ -247,7 +247,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تاریخ شروع فعالیت </label>
-                          <input autocomplete="off" type="text" autocomplete="off" id="membership_start_date" value="{{old('membership_start_date', '1398-04-23')}}"  name="membership_start_date" class="form-control datepicker" >
+                          <input autocomplete="off" type="text" autocomplete="off" id="membership_start_date" value="{{old('membership_start_date', '')}}"  name="membership_start_date" class="form-control datepicker" >
                           @if($errors->has('membership_start_date'))
                             <small class="form-control-feedback text-danger">{{$errors->first('membership_start_date')}}</small>
                           @endif
@@ -272,7 +272,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تعداد افراد معلول خانواده</label>
-                          <input autocomplete="off" type="number" id="number_of_disabled_members_in_family" name="number_of_disabled_members_in_family" value="{{old('number_of_disabled_members_in_family', '6')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="number" id="number_of_disabled_members_in_family" name="number_of_disabled_members_in_family" value="{{old('number_of_disabled_members_in_family', '')}}" class="form-control" onkeyup="onlyNumber(this)">
                           @if($errors->has('number_of_disabled_members_in_family'))
                             <small class="form-control-feedback text-danger">{{$errors->first('number_of_disabled_members_in_family')}}</small>
                           @endif
@@ -282,7 +282,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تعداد افراد خانواده</label>
-                          <input autocomplete="off" type="number" id="number_of_family_members" name="number_of_family_members" value="{{old('number_of_family_members', '10')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="number" id="number_of_family_members" name="number_of_family_members" value="{{old('number_of_family_members', '')}}" class="form-control" onkeyup="onlyNumber(this)">
                           @if($errors->has('number_of_family_members'))
                             <small class="form-control-feedback text-danger">{{$errors->first('number_of_family_members')}}</small>
                           @endif
@@ -321,7 +321,7 @@
                       <div class="col-md-8">
                         <div class="form-group">
                           <label class="control-label">علت حمایت</label>
-                          <input autocomplete="off" type="text" id="reasons_to_help" name="reasons_to_help" value="{{old('reasons_to_help', 'test')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="reasons_to_help" name="reasons_to_help" value="{{old('reasons_to_help', '')}}" class="form-control">
                           @if($errors->has('reasons_to_help'))
                             <small class="form-control-feedback text-danger">{{$errors->first('reasons_to_help')}}</small>
                           @endif
