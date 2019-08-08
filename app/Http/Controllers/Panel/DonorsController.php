@@ -58,7 +58,6 @@ class DonorsController extends Controller
   }
   public function store(Request $request)
   {
-    return $request->all();
     // store donor
     $donor = new Donor;
     $donor->full_name = $request->full_name;
