@@ -40,6 +40,7 @@
                                     <th class=" ">ردیف</th>
                                     <th class=" text-center">نام حامی</th>
                                     <th class=" text-center">کد ملی</th>
+                                    <th class="text-center">مددجو ها</th>
                                     <th class=" text-center">  عملیات </th>
                                 </tr>
                             </thead>
@@ -86,7 +87,14 @@
                                           <td data-title="ردیف" class="row_col_10"  scope="row" >${i+1}</th>
                                           <td data-title="نام حامی" class="simti_td_center">${donor.full_name}</td>
                                           <td data-title="کد ملی" class="simti_td_center">${donor.national_id}</td>
-                                          <td data-title="عملیات" class="td_btn_custom_width">
+                                          <td data-title="مددجو ها" class="simti_td_center">`
+                                              let arr = [];
+                                              Object.values(donor.donees).forEach(function(donee){
+                                                arr.push(donee.full_name)
+                                              })
+                                              content+=`${arr.join(", ")}`
+
+                                            content+=`<td data-title="عملیات" class="td_btn_custom_width">
                                             <div class="dropdown simti_test">
                                               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">عملیات&nbsp;&nbsp;<span class="caret"></span></button>
                                               <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(120px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">

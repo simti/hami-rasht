@@ -21,6 +21,7 @@ class DonorsController extends Controller
       ->offset($request->input('page', 0) * 10)
       ->limit($request->input('limit', 10))
       ->Active()
+      ->with('donees')
       ->get();
     return $donors;
   }
