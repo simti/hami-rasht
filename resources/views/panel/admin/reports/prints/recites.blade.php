@@ -190,7 +190,7 @@
                           <div class="month">
                             <span>ماه: </span>
                             <span>
-                              @switch(explode("-",$transaction->period->title)[1])
+                              @switch(explode("-",$transactions[$index]->period->title)[1])
                                 @case("1")
                                   "فروردین"
                                   @break
