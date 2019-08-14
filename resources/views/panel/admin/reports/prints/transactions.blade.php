@@ -121,7 +121,8 @@
 <body>
   @if($total>$per_page)
     @php
-     $index =0;   
+     $index =0; 
+     $total_money = 0;  
     @endphp
     @for ($i = 0; $i <ceil($total/$per_page); $i++)
       <page size="A4" layout="landscape">
@@ -206,30 +207,42 @@
               <th>هزینه</th>
               
             </tr>
-        @for ($j= 0; $j < $per_page; $j++)
-          @if($index<$total)
-            <tr>
-                <td>{{($index+1)}}</td>
-                <td>{{$transactions[$index]->donor->full_name}}</td>
-                <td>{{$transactions[$index]->donee->full_name}}</td>
-                <td>{{$transactions[$index]->donee->bank_account_number}}</td>
-                <td>{{$transactions[$index]->donee->bank_account_owner}}</td>
-                <td>{{$transactions[$index]->donee->reasons_to_help}}</td>
-                <td>{{$transactions[$index]->money_amount}}</td>
+            @for ($j= 0; $j < $per_page; $j++)
+              @if($index<$total)
+                <tr>
+                  <td>{{($index+1)}}</td>
+                  <td>{{$transactions[$index]->donor->full_name}}</td>
+                  <td>{{$transactions[$index]->donee->full_name}}</td>
+                  <td>{{$transactions[$index]->donee->bank_account_number}}</td>
+                  <td>{{$transactions[$index]->donee->bank_account_owner}}</td>
+                  <td>{{$transactions[$index]->donee->reasons_to_help}}</td>
+                  <td>{{$transactions[$index]->money_amount}}</td>
+                </tr>
+                @php
+                  $total_money+=$transactions[$index]->money_amount;
+                  $index++;
+                @endphp
+              @endif
+            @endfor
+            @if($i==ceil($total/$per_page)-1)
+              <tr>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="font-weight:bold;">مجموع</td>
+                <td style="font-weight:bold;">{{$total_money}}</td>
               </tr>
             @endif
-          @php
-            $index++;
-          @endphp
-          @endfor
-        </table>
-              
-      </div>
-    </page> 
+          </table>
+        </div>
+      </page> 
     @endfor
   @else
     @php
      $index =0;   
+     $total_money =0;
     @endphp
     <page size="A4" layout="landscape">
       <div class="header">
@@ -324,9 +337,19 @@
               <td>{{$transactions[$j]->money_amount}}</td>
             </tr>
             @php
+              $total_money+=$transactions[$index]->money_amount;
               $index++;
             @endphp
             @endfor  
+            <tr>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="border: none;"></td>
+                <td style="font-weight:bold;">مجموع</td>
+                <td style="font-weight:bold;">{{$total_money}}</td>
+            </tr>
         </table>
       </div>
     </page> 
