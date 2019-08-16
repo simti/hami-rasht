@@ -127,7 +127,7 @@
                           <div class="col-md-4">
                               <div class="form-group">
                                 <label class="control-label">تاریخ  تولد </label>
-                                <input autocomplete="off" type="text" autocomplete="off" id="birth_date" value="{{old('birth_date', '')}}"  name="birth_date" class="form-control datepicker" >
+                                <input autocomplete="off" type="text" autocomplete="off" id="birth_date" value="{{old('birth_date', '')}}"  name="birth_date" class="form-control datepicker {{$errors->has('birth_date')?'is-invalid':''}}" >
                                 @if($errors->has('birth_date'))
                                   <small class="form-control-feedback text-danger">{{$errors->first('birth_date')}}</small>
                                 @endif
@@ -173,7 +173,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شماره حساب</label>
-                          <input autocomplete="off" type="text" id="bank_account_number" name="bank_account_number" value="{{old('bank_account_number', '')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="text" id="bank_account_number" name="bank_account_number" value="{{old('bank_account_number', '')}}" class="form-control {{$errors->has('bank_account_number')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
                           @if($errors->has('bank_account_number'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_account_number')}}</small>
                           @endif
@@ -183,7 +183,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شماره کارت</label>
-                          <input autocomplete="off" maxlength="16" type="text" id="bank_card_number" name="bank_card_number" value="{{old('bank_card_number', '')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" maxlength="16" type="text" id="bank_card_number" name="bank_card_number" value="{{old('bank_card_number', '')}}" class="form-control {{$errors->has('bank_card_number')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
                           @if($errors->has('bank_card_number'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_card_number')}}</small>
                           @endif
@@ -193,7 +193,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">صاحب حساب</label>
-                          <input autocomplete="off" type="text" id="bank_account_owner" name="bank_account_owner" value="{{old('bank_account_owner', '')}}" class="form-control" >
+                          <input autocomplete="off" type="text" id="bank_account_owner" name="bank_account_owner" value="{{old('bank_account_owner', '')}}" class="form-control {{$errors->has('bank_account_owner')?'is-invalid':''}}" >
                           @if($errors->has('bank_account_owner'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_account_owner')}}</small>
                           @endif
@@ -203,7 +203,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">نام بانک</label>
-                          <input autocomplete="off" type="text" id="bank_name" name="bank_name" value="{{old('bank_name', '')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="bank_name" name="bank_name" value="{{old('bank_name', '')}}" class="form-control {{$errors->has('bank_name')?'is-invalid':''}}">
                           @if($errors->has('bank_name'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_name')}}</small>
                           @endif
@@ -213,7 +213,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">شعبه</label>
-                          <input autocomplete="off" type="text" id="bank_branch_name" name="bank_branch_name" value="{{old('bank_branch_name', '')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="bank_branch_name" name="bank_branch_name" value="{{old('bank_branch_name', '')}}" class="form-control {{$errors->has('bank_branch_name')?'is-invalid':''}}">
                           @if($errors->has('bank_branch_name'))
                             <small class="form-control-feedback text-danger">{{$errors->first('bank_branch_name')}}</small>
                           @endif
@@ -247,7 +247,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تاریخ شروع فعالیت </label>
-                          <input autocomplete="off" type="text" autocomplete="off" id="membership_start_date" value="{{old('membership_start_date', '')}}"  name="membership_start_date" class="form-control datepicker" >
+                          <input autocomplete="off" type="text" autocomplete="off" id="membership_start_date" value="{{old('membership_start_date', '')}}"  name="membership_start_date" class="form-control datepicker {{$errors->has('membership_start_date')?'is-invalid':''}}" >
                           @if($errors->has('membership_start_date'))
                             <small class="form-control-feedback text-danger">{{$errors->first('membership_start_date')}}</small>
                           @endif
@@ -258,7 +258,7 @@
                           {{--  has-success  --}}
                           <div class="form-group">
                             <label class="control-label">واحد سازمانی</label>
-                            <select name="organization_branch" class="form-control">
+                            <select name="organization_branch" class="form-control {{$errors->has('organization_branch')?'is-invalid':''}}">
                                 <option value="1" {{old('organization_branch', '') == '1'? 'selected': ''}}>توانبخشی</option>
                                 <option value="2" {{old('organization_branch', '') == '2'? 'selected': ''}}>اجتماعی </option>
                                 <option value="3" {{old('organization_branch', '') == '3'? 'selected': ''}}>پیشگیری </option>
@@ -272,7 +272,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تعداد افراد معلول خانواده</label>
-                          <input autocomplete="off" type="number" id="number_of_disabled_members_in_family" name="number_of_disabled_members_in_family" value="{{old('number_of_disabled_members_in_family', '')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="number" id="number_of_disabled_members_in_family" name="number_of_disabled_members_in_family" value="{{old('number_of_disabled_members_in_family', '')}}" class="form-control {{$errors->has('number_of_disabled_members_in_family')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
                           @if($errors->has('number_of_disabled_members_in_family'))
                             <small class="form-control-feedback text-danger">{{$errors->first('number_of_disabled_members_in_family')}}</small>
                           @endif
@@ -282,7 +282,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">تعداد افراد خانواده</label>
-                          <input autocomplete="off" type="number" id="number_of_family_members" name="number_of_family_members" value="{{old('number_of_family_members', '')}}" class="form-control" onkeyup="onlyNumber(this)">
+                          <input autocomplete="off" type="number" id="number_of_family_members" name="number_of_family_members" value="{{old('number_of_family_members', '')}}" class="form-control {{$errors->has('number_of_family_members')?'is-invalid':''}}" onkeyup="onlyNumber(this)">
                           @if($errors->has('number_of_family_members'))
                             <small class="form-control-feedback text-danger">{{$errors->first('number_of_family_members')}}</small>
                           @endif
@@ -293,7 +293,7 @@
                         {{--  has-success  --}}
                         <div class="form-group">
                           <label class="control-label">معلول</label>
-                          <select name="disabled" class="form-control">
+                          <select name="disabled" class="form-control {{$errors->has('disabled')?'is-invalid':''}}">
                               <option value="1" {{old('disabled', '') == '1'? 'selected': ''}}>می باشد</option>
                               <option value="2" {{old('disabled', '') == '2'? 'selected': ''}}>نمی باشد</option>
                           </select>
@@ -306,7 +306,7 @@
                         {{--  has-success  --}}
                         <div class="form-group">
                           <label class="control-label">نوع خروجی</label>
-                          <select name="output_type" class="form-control">
+                          <select name="output_type" class="form-control {{$errors->has('output_type')?'is-invalid':''}}">
                               <option value="1" {{old('output_type', '') == '1'? 'selected': ''}}>بانک</option>
                               <option value="2" {{old('output_type', '') == '2'? 'selected': ''}}> درون سازمانی</option>
                           </select>
@@ -321,7 +321,7 @@
                       <div class="col-md-8">
                         <div class="form-group">
                           <label class="control-label">علت حمایت</label>
-                          <input autocomplete="off" type="text" id="reasons_to_help" name="reasons_to_help" value="{{old('reasons_to_help', '')}}" class="form-control">
+                          <input autocomplete="off" type="text" id="reasons_to_help" name="reasons_to_help" value="{{old('reasons_to_help', '')}}" class="form-control {{$errors->has('reasons_to_help')?'is-invalid':''}}">
                           @if($errors->has('reasons_to_help'))
                             <small class="form-control-feedback text-danger">{{$errors->first('reasons_to_help')}}</small>
                           @endif
@@ -347,7 +347,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="donors-content">
-                                        
                                     </tbody>
                                 </table>
                             </div> 
@@ -389,6 +388,7 @@
   <script>
       var all_donors = @json($donors);
       let donors = []
+      let old_donors = @json(old('donors'));
   </script>
   <script>
       function open_modal(){
@@ -426,7 +426,6 @@
         }
       }
 
-
       function remove_donor(index){
         donors.splice(index,1)
         //update table
@@ -438,6 +437,20 @@
         $('.simti_overlay').click(function(){
           close_modal()
         })
+
+        //get old donors
+        if(old_donors!=null){
+          Object.values(old_donors).forEach(function(old_donor){
+            //get selected full_name
+            for(let i = 1; i <=all_donors.length;i++){
+              if(all_donors[i-1].id == old_donor.id){
+                old_donor.name = all_donors[i-1].full_name;
+              }
+            }
+          });
+          donors = old_donors.slice();
+          render_donors(donors)
+        }
       })
       //store donors
 
@@ -457,8 +470,8 @@
             donor.id = $('#donor').val()
             donor.type = $("#support_type").val()
             donor.money = $("#support_amount").val()
-            donor.non_money = $("#support_description").val()
-    
+            donor.no_money = $("#support_description").val()
+
             //add to object
             donors[donors.length] = donor
     
@@ -481,7 +494,7 @@
           donor.id = $('#donor').val()
           donor.type = $("#support_type").val()
           donor.money = $("#support_amount").val()
-          donor.non_money = $("#support_description").val()
+          donor.no_money = $("#support_description").val()
   
           //add to object
           donors[donors.length] = donor
@@ -500,7 +513,7 @@
         //initiate values
         $("#support_type_edit").val(donors[index].type)
         $("#support_amount_edit").val(donors[index].money);
-        $("#support_description_edit").val(donors[index].non_money)
+        $("#support_description_edit").val(donors[index].no_money)
         $("#donor_edit").val(donors[index].id);
         $("#donor_edit").selectpicker('render');
         if(Number(donors[index].type) == 1){
@@ -533,13 +546,13 @@
           donors[index].id = $('#donor_edit').val()
           donors[index].type = $("#support_type_edit").val()
           donors[index].money = $("#support_amount_edit").val()
-          donors[index].non_money = $("#support_description_edit").val()
+          donors[index].no_money = $("#support_description_edit").val()
 
         }else{
           if(found.id == donors[index].id){
             donors[index].type = $("#support_type_edit").val()
             donors[index].money = $("#support_amount_edit").val()
-            donors[index].non_money = $("#support_description_edit").val()
+            donors[index].no_money = $("#support_description_edit").val()
           }else{
             toast_alert("این مددجو قبلا اضافه شده است","true");
           }
@@ -559,7 +572,7 @@
             <input type="hidden" name="donors[${i}][id]" value="${donors[i].id}">
             <input type="hidden" name="donors[${i}][type]" value="${donors[i].type}">
             <input type="hidden" name="donors[${i}][money]" value="${donors[i].money}">
-            <input type="hidden" name="donors[${i}][no_money]" value="${donors[i].non_money}">
+            <input type="hidden" name="donors[${i}][no_money]" value="${donors[i].no_money}">
           `
         }
 
@@ -576,7 +589,7 @@
             <tr id="donors-content">
               <td data-title="مددجو">${list[i].name}</td>
               <td data-title="کمک نقدی">${list[i].money}</td>
-              <td data-title="کمک غیرنقدی">${list[i].non_money==''?'-': list[i].non_money}</td>
+              <td data-title="کمک غیرنقدی">${list[i].no_money==''?'-': list[i].no_money}</td>
               <td data-title="عملیات" style="cursor:pointer;color: #5c4ac7;    font-size: larger;">
                 <i class="fa fa-trash" aria-hidden="true" onclick="remove_donor(${i})"></i>
                 &nbsp;&nbsp;

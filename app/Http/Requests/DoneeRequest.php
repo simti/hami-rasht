@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class DoneeRequest extends FormRequest
 {
@@ -34,60 +35,63 @@ class DoneeRequest extends FormRequest
         case 'POST':
             {
               $rules = [
-                  'full_name' => 'required|max:191',
-                  'father_name' => 'required|max:65535',
-                  'national_id'  => 'max:65535',
-                  'birth_certificate_id' => 'required',
-                  'phone' => 'required',
-                  'mobile' => 'required',
-                  'gender' => 'required',
-                  'education' => 'required',
-                  'birth_date' => 'required',
-                  'address' => 'required',
+                  'file_number' => 'required|max:45',
+                  'full_name' => 'required|string|max:90',
+                  'father_name' => 'required|string|max:45',
+                  'birth_date' => 'required|string|regex:/\d{4}-\d{2}-\d{2}/',
+                  'birth_certificate_id' => 'required|string|max:10|unique:donees',
+                  'national_id'  => 'required|string|size:10|unique:donees',
                   'bank_account_number' => 'required',
-                  'bank_card_number' => 'required',
-                  'bank_account_owner' => 'required',
-                  'bank_name' => 'required',
-                  'bank_branch_name' => 'required',
-                  'file_number' => 'required',
-                  'membership_start_date' => 'required',
+                  'bank_card_number' => 'required|max:16',
+                  'bank_account_owner' => 'required|max:90',
+                  'bank_name' => 'required|max:45',
+                  'bank_branch_name' => 'required|max:45',
+                  'education' => 'required',
+                  'gender' => 'required',
+                  'membership_start_date' => 'required|string|regex:/\d{4}-\d{2}-\d{2}/',
+                  'address' => 'required',
+                  'phone' => 'required|size:11',
+                  'mobile' => 'required|size:11',
                   'organization_branch' => 'required',
                   'number_of_disabled_members_in_family' => 'required',
                   'number_of_family_members' => 'required',
-                  'disabled' => 'required',
                   'output_type' => 'required',
                   'reasons_to_help' => 'required',
+                  'donors.*.money' => 'sometimes|required_if:donors.*.type,1',
+                  'donors.*.no_money' => 'sometimes|required_if:donors.*.type,2|required_if:donors.*.type,3',
               ];
               return $rules;
             }
         case 'PUT':
         case 'PATCH':
             {
+              $donee_id = $this->route('donee_id');
               $rules = [
-                'full_name' => 'required|max:191',
-                'father_name' => 'required|max:65535',
-                'national_id'  => 'max:65535',
-                'birth_certificate_id' => 'required',
-                'phone' => 'required',
-                'mobile' => 'required',
-                'gender' => 'required',
-                'education' => 'required',
-                'birth_date' => 'required',
-                'address' => 'required',
+                'file_number' => 'required|max:45',
+                'full_name' => 'required|string|max:90',
+                'father_name' => 'required|string|max:45',
+                'birth_date' => 'required|string|regex:/\d{4}-\d{2}-\d{2}/',
+                'birth_certificate_id' => ['required|string',Rule::unique('donees', 'birth_certificate_id')->ignore($donee_id)],
+                'national_id' => ['required|string|size:10',Rule::unique('donees', 'birth_certificate_id')->ignore($donee_id)],
                 'bank_account_number' => 'required',
-                'bank_card_number' => 'required',
-                'bank_account_owner' => 'required',
-                'bank_name' => 'required',
-                'bank_branch_name' => 'required',
-                'file_number' => 'required',
-                'membership_start_date' => 'required',
+                'bank_card_number' => 'required|max:16',
+                'bank_account_owner' => 'required|max:90',
+                'bank_name' => 'required|max:45',
+                'bank_branch_name' => 'required|max:45',
+                'education' => 'required',
+                'gender' => 'required',
+                'membership_start_date' => 'required|string|regex:/\d{4}-\d{2}-\d{2}/',
+                'address' => 'required',
+                'phone' => 'required|size:11',
+                'mobile' => 'required|size:11',
                 'organization_branch' => 'required',
                 'number_of_disabled_members_in_family' => 'required',
                 'number_of_family_members' => 'required',
-                'disabled' => 'required',
                 'output_type' => 'required',
                 'reasons_to_help' => 'required',
-              ];
+                'donors.*.money' => 'sometimes|required_if:donors.type,1',
+                'donors.*.no_money' => 'sometimes|required_if:donors.type,2|required_if:donors.type,3',
+            ];
               return $rules;
             }
         default:
