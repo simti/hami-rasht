@@ -460,6 +460,13 @@
         //check for uniqueness
         if(donors.length>0){
           if(typeof(donors.find(donor => donor.id == $('#donor').val())) != "object"){
+            if($("#support_type").val() == "1"){
+              if($("#support_amount").val()=="")
+                return toast_alert('مبلغ نمی‌تواند خالی باشد',"true");
+            }else{
+              if($("#support_description").val()=="")
+                return toast_alert('شرح کمک نمی‌تواند خالی باشد',"true");
+            }
             //get selected full_name
             for(let i = 1; i <=all_donors.length;i++){
               if(all_donors[i-1].id == Number($('#donor').val())){
@@ -484,6 +491,13 @@
             toast_alert("این مددجو قبلا اضافه شده است","true");
           }
         }else{
+          if($("#support_type").val() == "1"){
+            if($("#support_amount").val()=="")
+              return toast_alert('مبلغ نمی‌تواند خالی باشد',"true");
+          }else{
+            if($("#support_description").val()=="")
+              return toast_alert('شرح کمک نمی‌تواند خالی باشد',"true");
+          }
           //get selected full_name
           for(let i = 1; i <=all_donors.length;i++){
             if(all_donors[i-1].id == Number($('#donor').val())){

@@ -34,6 +34,9 @@
       }
       
       @media print {
+        page{
+          page-break-after:always;
+        }
         body, page {
           margin: 0;
           box-shadow: 0;
