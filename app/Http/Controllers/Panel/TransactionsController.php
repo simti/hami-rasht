@@ -43,7 +43,7 @@ class TransactionsController extends Controller
           },
         ]
       )
-      ->get();
+      ->orderBy('created_at', 'desc')->get();
     return $transactions;
   }
   public function count(Request $request)
@@ -51,13 +51,13 @@ class TransactionsController extends Controller
     $count = Transaction::whereHas('donor', function ($query) use ($request) {
       $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
     })
-      ->whereHas('donee', function ($query) use ($request) {
+      ->orwhereHas('donee', function ($query) use ($request) {
         $query->where('full_name', 'LIKE', '%' . $request->input('term', '') . '%');
       })
-      ->whereHas('donor', function ($query) use ($request) {
+      ->orwhereHas('donor', function ($query) use ($request) {
         $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
       })
-      ->whereHas('donee', function ($query) use ($request) {
+      ->orwhereHas('donee', function ($query) use ($request) {
         $query->where('national_id', 'LIKE', '%' . $request->input('term', '') . '%');
       })
       ->count();
