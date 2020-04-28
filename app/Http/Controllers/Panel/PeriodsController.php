@@ -17,7 +17,7 @@ class PeriodsController extends Controller
   public function fetch(Request $request)
   {
     $period = Period::where('title', 'LIKE', '%' . $request->input('term', '') . '%')
-      ->orderBy('created_at', 'asc')
+      ->orderBy('created_at', 'desc')
       ->offset($request->input('page', 0) * 10)
       ->limit($request->input('limit', 10))
       ->get();
@@ -43,7 +43,11 @@ class PeriodsController extends Controller
       $last = $p[sizeof($p) - 1];
       $explode_last = explode("-", $last->title);
       $period = new Period;
-      $period->title = $explode_last[0] . "-" . ($explode_last[1] + 1);
+      if($explode_last[1] == 12){
+        $period->title = ($explode_last[0]+1) . "-" . "1";
+      }else{
+        $period->title = $explode_last[0] . "-" . ($explode_last[1] + 1);
+      }
       $period->save();
       return redirect()->route('periods.index');
     }
