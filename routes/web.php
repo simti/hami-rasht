@@ -15,6 +15,13 @@ Route::get('/', function () {
   return view('welcome');
 })->name('home');
 
+Route::get('settings', function () {
+    return view('panel.admin.settings');
+})->name('settings.show');
+
+Route::post('settings', 'Panel\SettingsController@transaction')->name('settings.store');
+
+
 Route::get('login',function(){
   return redirect()->route('home');
 })->name('login');

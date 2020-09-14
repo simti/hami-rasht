@@ -1,49 +1,50 @@
 @extends('layouts.admin.panel')
 @section('custom_css')
-  <link href="{{url('admin/css/lib/bootstrap-select/bootstrap-select.min.css?v=3')}}" rel="stylesheet" />
+<link href="{{url('admin/css/lib/bootstrap-select/bootstrap-select.min.css?v=3')}}" rel="stylesheet" />
 <style>
     .form-control:focus {
-      color: #000000;
-  }
+        color: #000000;
+    }
 
-  .form-control {
-    color: #000000;
-}
+    .form-control {
+        color: #000000;
+    }
 </style>
 @endsection
 @section('page_title')
-  <div class="col-md-5 align-self-center">
-      <h3 class="text-primary"> افزودن هزینه</h3> </div>
-  <div class="col-md-7 align-self-center">
-      <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="javascript:void(0)">خانه</a></li>
-          <li class="breadcrumb-item active">مددجو</li>
-          <li class="breadcrumb-item active">جدید </li>
-      </ol>
-  </div>
+<div class="col-md-5 align-self-center">
+    <h3 class="text-primary"> افزودن هزینه</h3>
+</div>
+<div class="col-md-7 align-self-center">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">خانه</a></li>
+        <li class="breadcrumb-item active">مددجو</li>
+        <li class="breadcrumb-item active">جدید </li>
+    </ol>
+</div>
 @endsection
 
 @section('content')
-  <form action="{{route('donees.store')}}" method="POST" enctype="multipart/form-data" >
-  @csrf
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="row">
+<form action="{{route('donees.store')}}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
         <div class="col-lg-12">
-          <div class="card card-outline-primary">
-            <div class="card-body">
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                  <div class="form-body">
-                    <h3 class="box-title m-t-7">ثبت هزینه جدید</h3>
-                    <hr>
-                    <div class="row p-t-20">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="control-label">حامی</label>
-                          <script>
-                            $(document).ready(function(){
-                              $("#donors").on("changed.bs.select", 
+                    <div class="card card-outline-primary">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-body">
+                                        <h3 class="box-title m-t-7">ثبت هزینه جدید</h3>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">حامی</label>
+                                                    <script>
+                                                        $(document).ready(function(){
+                              $("#donors").on("changed.bs.select",
                                 function(e, clickedIndex, newValue, oldValue) {
                                   let id = this.value;
                                   var settings = {
@@ -70,69 +71,77 @@
                                   });
                                 })
                               });
-                          </script>
-                          <select id="donors" class="selectpicker form-control" data-style="simti_o" name="donors[]" data-live-search="true">
-                            @foreach(App\Donor::has('donees')->Active()->get() as $donor)
-                              <option value="{{$donor->id}}">{{$donor->full_name}}</option>
-                            @endforeach
-                          </select>
-                          @if($errors->has('donors'))
-                            <small class="form-control-feedback text-danger">{{$errors->first('donors')}}</small>
-                          @endif
-                        </div>
-                      </div> 
+                                                    </script>
+                                                    <select id="donors" class="selectpicker form-control"
+                                                        data-style="simti_o" name="donors[]" data-live-search="true">
+                                                        @foreach(App\Donor::has('donees')->Active()->get() as $donor)
+                                                        <option value="{{$donor->id}}">{{$donor->full_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @if($errors->has('donors'))
+                                                    <small
+                                                        class="form-control-feedback text-danger">{{$errors->first('donors')}}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="control-label">مددجو</label>
-                          <select id="donees_list" name="donees" class="form-control">
-                            @if(App\Donor::Active()->count()>0)
-                              @foreach(App\Donor::first()->donees as $donee)
-                                <option value="{{$donee->id}}" >{{$donee->full_name}}</option>
-                              @endforeach
-                            @endif
-                          </select>
-                          @if($errors->has('periods'))
-                            <small class="form-control-feedback text-danger">{{$errors->first('periods')}}</small>
-                          @endif
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">مددجو</label>
+                                                    <select id="donees_list" name="donees" class="form-control">
+                                                        @if(App\Donor::Active()->count()>0)
+                                                        @foreach(App\Donor::first()->donees as $donee)
+                                                        <option value="{{$donee->id}}">{{$donee->full_name}}</option>
+                                                        @endforeach
+                                                        @endif
+                                                    </select>
+                                                    @if($errors->has('periods'))
+                                                    <small
+                                                        class="form-control-feedback text-danger">{{$errors->first('periods')}}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">دوره زمانی </label>
+                                                    <select name="period" id="period" class="form-control">
+                                                        @foreach(App\Period::orderBy('created_at','asc')->get() as
+                                                        $period)
+                                                        <option value="{{$period->id}}"
+                                                            {{ in_array($period->id, old('periods', []))? 'selected': ''}}
+                                                            onclick="test()">{{$period->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @if($errors->has('periods'))
+                                                    <small
+                                                        class="form-control-feedback text-danger">{{$errors->first('periods')}}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions text-left" style="margin-top:80px">
+                                            <button type="button" class="btn btn-success" onclick="fetch_info()"> ثبت <i
+                                                    class="fa fa-check"></i> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <!--/span-->
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="control-label">دوره زمانی </label>
-                          <select name="period" id="period" class="form-control">
-                              @foreach(App\Period::orderBy('created_at','asc')->get() as $period)
-                                <option value="{{$period->id}}" {{ in_array($period->id, old('periods', []))? 'selected': ''}} onclick="test()">{{$period->title}}</option>
-                              @endforeach
-                          </select>
-                          @if($errors->has('periods'))
-                            <small class="form-control-feedback text-danger">{{$errors->first('periods')}}</small>
-                          @endif
-                        </div>
-                      </div>
                     </div>
-                    <div class="form-actions text-left" style="margin-top:80px">
-                        <button type="button" class="btn btn-success" onclick="fetch_info()"> ثبت <i class="fa fa-check"></i> </button>
-                      </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  </form>
+
+</form>
 @endsection
 @section('custom_js')
-  <script src="{{url('admin/js/lib/bootstrap-select/bootstrap-select.min.js')}}"></script>    
+<script src="{{url('admin/js/lib/bootstrap-select/bootstrap-select.min.js')}}"></script>
 @endsection
 @section('custom_modal')
-  <script>
-      let donor,donee,period,money,non_money,donation_type;
+<script>
+    let donor,donee,period,money,non_money,donation_type;
       function open_modal(){
         $('.menu_title').val('')
         $('.simti_overlay').show();
@@ -190,60 +199,60 @@
         }
         $.ajax(settings).done(function (response) {
           console.log(response)
-          if(response=="already existed!"){
-            close_modal();
-            toast_alert("تراکنشی برای این ممدجو و حامی در این دوره ثبت شده است!","true")
-          }else{
-            close_modal();
-            toast_alert("هزینه با موفقیت ثبت شد.","false")
-            setTimeout(function() { location.replace("{{route('transactions.index')}}") }, 2000);
-          }
+        //   if(response=="already existed!"){
+        //     close_modal();
+        //     toast_alert("تراکنشی برای این ممدجو و حامی در این دوره ثبت شده است!","true")
+        //   }else{
+        //     close_modal();
+        //     toast_alert("هزینه با موفقیت ثبت شد.","false")
+        //     setTimeout(function() { location.replace("{{route('transactions.index')}}") }, 2000);
+        //   }
           //reset text infos
-          $("#donee_name").html('')
-          $("#bank_account").html('')
-          $("#bank_account_owner").html('')
-          $("#money_amount").html('')
-          $("#non_money_amount").html('')
-          $("#donation_type").html('')
+        //   $("#donee_name").html('')
+        //   $("#bank_account").html('')
+        //   $("#bank_account_owner").html('')
+        //   $("#money_amount").html('')
+        //   $("#non_money_amount").html('')
+        //   $("#donation_type").html('')
         });
       }
-  </script>
-  <div  class="simti_overlay"></div>
-  <div id="new_simti_modal" class="simti_modal visible">
+</script>
+<div class="simti_overlay"></div>
+<div id="new_simti_modal" class="simti_modal visible">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-              <label class="control-label">نام مددجو: </label>
-              <span id="donee_name"></span>
+                <label class="control-label">نام مددجو: </label>
+                <span id="donee_name"></span>
             </div>
-          </div>
-          <div class="col-md-12">
+        </div>
+        <div class="col-md-12">
             <div class="form-group">
-              <label class="control-label">اطلاعات بانکی: </label>
-              <span id="bank_account"></span>
+                <label class="control-label">اطلاعات بانکی: </label>
+                <span id="bank_account"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">صاحب حساب : </label>
                 <span id="bank_account_owner"></span>
-              </div>
-          </div>
+            </div>
+        </div>
         <div class="col-md-12">
-            <div class="form-group" i >
-                <label class="control-label" > نوع کمک:  </label>
+            <div class="form-group" i>
+                <label class="control-label"> نوع کمک: </label>
                 <span id="donation_type"></span>
-              </div>
-          <div class="form-group" i >
-            <label class="control-label" > مبلغ (ریال): </label>
-            <span id="money_amount"></span>
-          </div>
-          <div class="form-group">
-            <label class="control-label" >شرح کمک: </label>
-            <span id="non_money_amount"></span>
-          </div>
+            </div>
+            <div class="form-group" i>
+                <label class="control-label"> مبلغ (ریال): </label>
+                <span id="money_amount"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">شرح کمک: </label>
+                <span id="non_money_amount"></span>
+            </div>
         </div>
     </div>
     <button class="btn btn-primary modal-submit" onclick="save_transaction()">تایید و ثبت</button>
     <button class="btn btn-primary modal-submit" onclick="close_modal()">بازگشت</button>
-  </div>
+</div>
 
 @endsection

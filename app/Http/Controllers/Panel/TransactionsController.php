@@ -71,6 +71,26 @@ class TransactionsController extends Controller
       return back()->withErrors(['transaction', 'ابتدا باید حامی ای ساخته و مددجویی به آن اضافه کنید']);
     }
   }
+
+  public function store(Request $request)
+  {
+    return Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first();
+
+    if (Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first())
+      return 'already existed!';
+
+    $transaction = new Transaction;
+    $transaction->donor_id = $request->donor;
+    $transaction->donee_id = $request->donee;
+    $transaction->period_id = $request->period;
+    $transaction->type = $request->type;
+    $transaction->money_amount = $request->money;
+    $transaction->non_money_detail = $request->non_money;
+    $transaction->output_type = Donee::find($request->donee)->output_type;
+    $transaction->save();
+    return 'saved';
+  }
+
   public function update(Request $request, Transaction $transaction)
   {
     $transaction->type = $request->type;
@@ -94,22 +114,6 @@ class TransactionsController extends Controller
   {
     $donor = Donor::find($request->donor_id);
     return $donor->donees()->where('donee_id', $request->donee_id)->first();
-  }
-  public function store(Request $request)
-  {
-    if (Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first())
-      return 'already existed!';
-
-    $transaction = new Transaction;
-    $transaction->donor_id = $request->donor;
-    $transaction->donee_id = $request->donee;
-    $transaction->period_id = $request->period;
-    $transaction->type = $request->type;
-    $transaction->money_amount = $request->money;
-    $transaction->non_money_detail = $request->non_money;
-    $transaction->output_type = Donee::find($request->donee)->output_type;
-    $transaction->save();
-    return 'saved';
   }
 
   public function delete(Request $request, Transaction $transaction)
