@@ -199,21 +199,21 @@
         }
         $.ajax(settings).done(function (response) {
           console.log(response)
-        //   if(response=="already existed!"){
-        //     close_modal();
-        //     toast_alert("تراکنشی برای این ممدجو و حامی در این دوره ثبت شده است!","true")
-        //   }else{
-        //     close_modal();
-        //     toast_alert("هزینه با موفقیت ثبت شد.","false")
-        //     setTimeout(function() { location.replace("{{route('transactions.index')}}") }, 2000);
-        //   }
+          if(response=="already existed!"){
+            close_modal();
+            toast_alert("تراکنشی برای این ممدجو و حامی در این دوره ثبت شده است!","true")
+          }else{
+            close_modal();
+            toast_alert("هزینه با موفقیت ثبت شد.","false")
+            setTimeout(function() { location.replace("{{route('transactions.index')}}") }, 2000);
+          }
           //reset text infos
-        //   $("#donee_name").html('')
-        //   $("#bank_account").html('')
-        //   $("#bank_account_owner").html('')
-        //   $("#money_amount").html('')
-        //   $("#non_money_amount").html('')
-        //   $("#donation_type").html('')
+          $("#donee_name").html('')
+          $("#bank_account").html('')
+          $("#bank_account_owner").html('')
+          $("#money_amount").html('')
+          $("#non_money_amount").html('')
+          $("#donation_type").html('')
         });
       }
 </script>

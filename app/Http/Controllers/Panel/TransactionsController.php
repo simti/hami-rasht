@@ -74,7 +74,6 @@ class TransactionsController extends Controller
 
   public function store(Request $request)
   {
-    return Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first();
 
     if (Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first())
       return 'already existed!';

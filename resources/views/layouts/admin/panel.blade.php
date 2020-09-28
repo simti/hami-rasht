@@ -285,7 +285,7 @@
 
                         <li>
                             <a href="{{route('settings.show')}}">
-                                <i class="fa  fa-setting" aria-hidden="true"></i>
+                                <i class="fa  fa-gear" aria-hidden="true"></i>
                                 <span class="hide-menu">تنظیمات
                                     {{--  <span class="label label-rouded label-primary pull-right">۲</span>  --}}
                                 </span>
