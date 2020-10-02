@@ -74,7 +74,6 @@ class TransactionsController extends Controller
 
   public function store(Request $request)
   {
-
     if (Transaction::where(["donor_id" => $request->donor, "donee_id" => $request->donee, "period_id" => $request->period])->first())
       return 'already existed!';
 
@@ -111,8 +110,17 @@ class TransactionsController extends Controller
   }
   public function fetch_info(Request $request)
   {
-    $donor = Donor::find($request->donor_id);
-    return $donor->donees()->where('donee_id', $request->donee_id)->first();
+    if(env('TRANSACTION') == 'profile'){
+        $donor = Donor::find($request->donor_id);
+        return $donor->donees()->where('donee_id', $request->donee_id)->first();
+    }else{
+        $last_related_transaction = Transaction::where([
+            ['donor_id', '=', $request->donor_id],
+            ['donee_id', '=', $request->donee_id],
+            ['type','=',Transaction::BANK]
+        ])->orderBy('id', 'desc')->with('donee')->first();
+        return $last_related_transaction;
+    }
   }
 
   public function delete(Request $request, Transaction $transaction)
@@ -129,15 +137,41 @@ class TransactionsController extends Controller
       foreach ($donees as $donee) {
         foreach ($donee->donors as $donor) {
           if (!(Transaction::where(["donor_id" => $donor->id, "donee_id" => $donee->id, "period_id" => \App\Period::orderBy('created_at', 'desc')->first()->id])->first())) {
-            $transaction = new Transaction;
-            $transaction->donor_id = $donor->id;
-            $transaction->donee_id = $donee->id;
-            $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
-            $transaction->type = ($donee->donors->where("id", $donor->id))->first()->pivot->donation_type;
-            $transaction->money_amount = ($donee->donors->where("id", $donor->id))->first()->pivot->money_amount;
-            $transaction->non_money_detail = ($donee->donors->where("id", $donor->id))->first()->pivot->non_money_detail;
-            $transaction->output_type = $donee->output_type;
-            $transaction->save();
+            if(env('TRANSACTION') == "last_record"){
+                $last_transaction = Transaction::where(["donor_id" => $donor->id, "donee_id" => $donee->id])->orderBy('id', 'desc')->first();
+                if(!$last_transaction){
+                    $transaction = new Transaction;
+                    $transaction->donor_id = $donor->id;
+                    $transaction->donee_id = $donee->id;
+                    $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
+                    $transaction->type = ($donee->donors->where("id", $donor->id))->first()->pivot->donation_type;
+                    $transaction->money_amount = ($donee->donors->where("id", $donor->id))->first()->pivot->money_amount;
+                    $transaction->non_money_detail = ($donee->donors->where("id", $donor->id))->first()->pivot->non_money_detail;
+                    $transaction->output_type = $donee->output_type;
+                    $transaction->save();
+                }else{
+                    $transaction = new Transaction;
+                    $transaction->donor_id = $donor->id;
+                    $transaction->donee_id = $donee->id;
+                    $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
+                    $transaction->type = $last_transaction->type;
+                    $transaction->money_amount = $last_transaction->money_amount;
+                    $transaction->non_money_detail = $last_transaction->non_money_detail;
+                    $transaction->output_type = $last_transaction->output_type;
+                    $transaction->save();
+                }
+
+            }else{
+                $transaction = new Transaction;
+                $transaction->donor_id = $donor->id;
+                $transaction->donee_id = $donee->id;
+                $transaction->period_id = \App\Period::orderBy('created_at', 'desc')->first()->id;
+                $transaction->type = ($donee->donors->where("id", $donor->id))->first()->pivot->donation_type;
+                $transaction->money_amount = ($donee->donors->where("id", $donor->id))->first()->pivot->money_amount;
+                $transaction->non_money_detail = ($donee->donors->where("id", $donor->id))->first()->pivot->non_money_detail;
+                $transaction->output_type = $donee->output_type;
+                $transaction->save();
+            }
           }
         }
       }

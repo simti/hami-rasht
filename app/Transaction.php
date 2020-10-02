@@ -40,7 +40,7 @@ class Transaction extends Model
     return $this->belongsTo('App\Donee');
   }
 
-  
+
   /**
    * The period that the transaction belongs to.
   */

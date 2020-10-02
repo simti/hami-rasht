@@ -141,7 +141,8 @@
 @endsection
 @section('custom_modal')
 <script>
-    let donor,donee,period,money,non_money,donation_type;
+    let donor,donee,period,money,non_money,donation_type,transaction_calc_type;
+      transaction_calc_type = "{{env('TRANSACTION')}}";
       function open_modal(){
         $('.menu_title').val('')
         $('.simti_overlay').show();
@@ -173,15 +174,27 @@
         }
         $.ajax(settings).done(function (response) {
           console.log(response)
-          $("#donee_name").html(response.full_name)
-          $("#bank_account").html(response.bank_account_number)
-          $("#bank_account_owner").html(response.bank_account_owner)
-          $("#money_amount").html(response.pivot.money_amount)
-          money = response.pivot.money_amount
-          $("#non_money_amount").html(response.pivot.non_money_detail=="null"?'-':response.pivot.non_money_detail)
-          non_money = response.pivot.non_money_detail
-          $("#donation_type").html(response.pivot.donation_type==1?'نقدی':'غیر نقدی')
-          donation_type = response.pivot.donation_type
+          if(transaction_calc_type == "last_record"){
+            $("#donee_name").html(response.donee.full_name)
+            $("#bank_account").html(response.donee.bank_account_number)
+            $("#bank_account_owner").html(response.donee.bank_account_owner)
+            $("#money_amount").html(response.money_amount)
+            money = response.money_amount
+            $("#non_money_amount").html(response.non_money_detail=="null"?'-':response.non_money_detail)
+            non_money = response.non_money_detail
+            $("#donation_type").html(response.type==1?'نقدی':'غیر نقدی')
+            donation_type = response.type
+          }else{
+            $("#donee_name").html(response.full_name)
+            $("#bank_account").html(response.bank_account_number)
+            $("#bank_account_owner").html(response.bank_account_owner)
+            $("#money_amount").html(response.pivot.money_amount)
+            money = response.pivot.money_amount
+            $("#non_money_amount").html(response.pivot.non_money_detail=="null"?'-':response.pivot.non_money_detail)
+            non_money = response.pivot.non_money_detail
+            $("#donation_type").html(response.pivot.donation_type==1?'نقدی':'غیر نقدی')
+            donation_type = response.pivot.donation_type
+          }
         });
       }
 

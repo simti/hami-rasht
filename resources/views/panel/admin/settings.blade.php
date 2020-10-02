@@ -37,13 +37,20 @@
                                     <div class="form-body">
                                         <h3 class="box-title m-t-7">ثبت هزینه جدید</h3>
                                         <hr>
+                                        {{App\Drivers\Enviroment::get('TRANSACTION')}}
                                         <div class="row p-t-20">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">نوع محاسبه تراکنش</label>
                                                     <select name="type" id="period" class="form-control">
-                                                        <option value="0">تراکنش قبلی</option>
-                                                        <option value="1">پروفایل مددجو</option>
+                                                        <option value="0"
+                                                            {{env('TRANSACTION')=="last_record"?'selected':''}}>
+                                                            تراکنش
+                                                            قبلی
+                                                        </option>
+                                                        <option value="1"
+                                                            {{env('TRANSACTION')=="profile"?'selected':''}}>پروفایل
+                                                            مددجو</option>
                                                     </select>
                                                 </div>
                                             </div>
