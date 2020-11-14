@@ -132,7 +132,7 @@ class TransactionsController extends Controller
   public function bank_bulk_store()
   {
     if (Donor::has('donees')->Active()->count() > 0) {
-      $donees = Donee::where('output_type', 1)->get();
+      $donees = Donee::where('output_type', 1)->Active()->get();
       // return $donees[1]->donors->where("id",$donees[1]->donors[0]->id)->first()->pivot;
       foreach ($donees as $donee) {
         foreach ($donee->donors as $donor) {
@@ -184,7 +184,7 @@ class TransactionsController extends Controller
   public function non_bank_bulk_store()
   {
     if (Donor::has('donees')->Active()->count() > 0) {
-      $donees = Donee::where('output_type', 2)->get();
+      $donees = Donee::where('output_type', 2)->Active()->get();
       foreach ($donees as $donee) {
         foreach ($donee->donors as $donor) {
           if (!(Transaction::where(["donor_id" => $donor->id, "donee_id" => $donee->id, "period_id" => \App\Period::orderBy('created_at', 'desc')->first()->id])->first())) {
